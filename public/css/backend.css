@@ -1,4 +1,4 @@
-.select2-container--default .select2-selection--single, .select2-selection .select2-selection--single{
+﻿.select2-container--default .select2-selection--single, .select2-selection .select2-selection--single{
     padding: 3px 0px;height: 30px;
 }
 .select2-container{margin-top: -5px;}
@@ -237,182 +237,239 @@ Cho loading
 }
 
 
+
 /* ============================================================
-   HADES - Theme Đỏ Đen
+   BADHABIT - Theme: Navy · Mint · Trắng · Xám · Đen than · Đỏ
    ============================================================ */
 
-/* --- Header & Logo --- */
-.skin-black .main-header,
-.skin-black .main-header .navbar {
-    background-color: #1a0000 !important;
-    border-bottom: 2px solid #cc0000 !important;
+:root {
+    --bh-navy:      #1B2A4A;
+    --bh-navy-dark: #131E35;
+    --bh-navy-mid:  #243558;
+    --bh-black:     #1C1C2E;
+    --bh-black-mid: #2A2A3E;
+    --bh-mint:      #A8D8C8;
+    --bh-mint-dark: #7EC8B0;
+    --bh-red:       #C0392B;
+    --bh-red-dark:  #962d22;
+    --bh-gray:      #B0BEC5;
+    --bh-gray-dark: #78909C;
+    --bh-white:     #FFFFFF;
+    --bh-bg:        #F4F6F9;
 }
-.skin-black .main-header .logo {
-    background-color: #0d0000 !important;
-    border-right: 1px solid #cc0000 !important;
+
+/* --- Body & Content --- */
+body { background-color: var(--bh-bg) !important; }
+
+.content-wrapper {
+    background-color: var(--bh-white) !important;
+    color: #2c3e50 !important;
+}
+
+/* --- Header --- */
+.skin-blue .main-header,
+.skin-blue .main-header .navbar {
+    background-color: var(--bh-navy) !important;
+    border-bottom: 3px solid var(--bh-mint) !important;
+}
+.skin-blue .main-header .logo {
+    background-color: var(--bh-navy-dark) !important;
+    border-right: 1px solid var(--bh-mint) !important;
     transition: background 0.2s;
 }
-.skin-black .main-header .logo:hover {
-    background-color: #2a0000 !important;
+.skin-blue .main-header .logo:hover {
+    background-color: var(--bh-navy-mid) !important;
 }
-.skin-black .main-header .navbar .sidebar-toggle:hover {
-    background-color: #cc0000 !important;
+.skin-blue .main-header .navbar .sidebar-toggle {
+    color: var(--bh-gray) !important;
 }
-.skin-black .main-header .navbar .sidebar-toggle {
-    color: #fff !important;
+.skin-blue .main-header .navbar .sidebar-toggle:hover {
+    background-color: var(--bh-navy-mid) !important;
+    color: var(--bh-white) !important;
 }
 
 /* --- Sidebar --- */
-.skin-black .main-sidebar,
-.skin-black .left-side {
-    background-color: #111111 !important;
+.skin-blue .main-sidebar,
+.skin-blue .left-side {
+    background-color: var(--bh-black) !important;
 }
-.skin-black .sidebar-menu > li > a {
-    color: #dddddd !important;
+.skin-blue .sidebar-menu > li > a {
+    color: var(--bh-gray) !important;
     border-left: 3px solid transparent;
     transition: all 0.2s;
 }
-.skin-black .sidebar-menu > li:hover > a,
-.skin-black .sidebar-menu > li.active > a {
-    color: #fff !important;
-    background-color: #2a0000 !important;
-    border-left: 3px solid #cc0000 !important;
+.skin-blue .sidebar-menu > li:hover > a,
+.skin-blue .sidebar-menu > li.active > a {
+    color: var(--bh-black) !important;
+    background-color: var(--bh-mint) !important;
+    border-left: 3px solid var(--bh-mint-dark) !important;
 }
-.skin-black .sidebar-menu > li > .treeview-menu {
-    background-color: #1a1a1a !important;
+.skin-blue .sidebar-menu > li > a > .fa {
+    color: var(--bh-mint) !important;
 }
-.skin-black .treeview-menu > li > a {
-    color: #bbbbbb !important;
+.skin-blue .sidebar-menu > li:hover > a > .fa,
+.skin-blue .sidebar-menu > li.active > a > .fa {
+    color: var(--bh-black) !important;
 }
-.skin-black .treeview-menu > li > a:hover {
-    color: #ff4444 !important;
+.skin-blue .sidebar-menu > li > .treeview-menu {
+    background-color: var(--bh-black-mid) !important;
 }
-.skin-black .sidebar-menu > li > a > .fa {
-    color: #cc0000 !important;
+.skin-blue .treeview-menu > li > a {
+    color: var(--bh-gray) !important;
+}
+.skin-blue .treeview-menu > li > a:hover {
+    color: var(--bh-mint) !important;
 }
 
 /* User panel sidebar */
-.skin-black .user-panel {
-    border-bottom: 1px solid #cc0000 !important;
-    background-color: #0d0000 !important;
+.skin-blue .user-panel {
+    border-bottom: 1px solid var(--bh-navy-mid) !important;
+    background-color: var(--bh-navy-dark) !important;
 }
-.skin-black .user-panel .info p {
-    color: #ffffff !important;
-}
-
-/* --- Content area --- */
-.content-wrapper {
-    background-color: #1c1c1c !important;
-    color: #e0e0e0 !important;
+.skin-blue .user-panel .info p {
+    color: var(--bh-white) !important;
 }
 
 /* --- Cards / Boxes --- */
 .box {
-    background: #222222 !important;
-    border-top: 3px solid #cc0000 !important;
-    color: #e0e0e0 !important;
-    box-shadow: 0 2px 8px rgba(204,0,0,0.15) !important;
+    background: var(--bh-white) !important;
+    border-top: 3px solid var(--bh-navy) !important;
+    color: #2c3e50 !important;
+    box-shadow: 0 2px 8px rgba(27,42,74,0.10) !important;
+    border-radius: 4px !important;
 }
 .box-header {
-    background: #2a0000 !important;
-    color: #fff !important;
-    border-bottom: 1px solid #cc0000 !important;
+    background: var(--bh-navy) !important;
+    color: var(--bh-white) !important;
+    border-bottom: 2px solid var(--bh-mint) !important;
 }
 .box-header .box-title {
-    color: #fff !important;
+    color: var(--bh-white) !important;
 }
 
 /* --- Tables --- */
 .table > thead > tr > th {
-    background-color: #2a0000 !important;
-    color: #fff !important;
-    border-color: #cc0000 !important;
+    background-color: var(--bh-navy) !important;
+    color: var(--bh-white) !important;
+    border-color: var(--bh-navy-mid) !important;
 }
 .table > tbody > tr > td,
 .table > tbody > tr > th {
-    background-color: #1e1e1e !important;
-    color: #dddddd !important;
-    border-color: #333 !important;
+    background-color: var(--bh-white) !important;
+    color: #2c3e50 !important;
+    border-color: #e0e6ed !important;
 }
 .table-striped > tbody > tr:nth-of-type(odd) > td {
-    background-color: #252525 !important;
+    background-color: #f0f4f8 !important;
 }
 .table-hover > tbody > tr:hover > td {
-    background-color: #3a0000 !important;
-    color: #fff !important;
+    background-color: #e8f4f0 !important;
+    color: #1B2A4A !important;
 }
 
 /* --- Buttons --- */
 .btn-primary {
-    background-color: #cc0000 !important;
-    border-color: #990000 !important;
-    color: #fff !important;
+    background-color: var(--bh-navy) !important;
+    border-color: var(--bh-navy-dark) !important;
+    color: var(--bh-white) !important;
 }
 .btn-primary:hover {
-    background-color: #990000 !important;
+    background-color: var(--bh-mint-dark) !important;
+    border-color: var(--bh-mint-dark) !important;
+    color: var(--bh-black) !important;
+}
+.btn-danger {
+    background-color: var(--bh-red) !important;
+    border-color: var(--bh-red-dark) !important;
+}
+.btn-danger:hover {
+    background-color: var(--bh-red-dark) !important;
 }
 .btn-default {
-    background-color: #333 !important;
-    border-color: #555 !important;
-    color: #ddd !important;
+    background-color: var(--bh-white) !important;
+    border-color: var(--bh-gray) !important;
+    color: #2c3e50 !important;
 }
 .btn-default:hover {
-    background-color: #444 !important;
-    color: #fff !important;
+    background-color: var(--bh-bg) !important;
+    border-color: var(--bh-navy) !important;
+    color: var(--bh-navy) !important;
+}
+.btn-success {
+    background-color: var(--bh-mint-dark) !important;
+    border-color: var(--bh-mint-dark) !important;
+    color: var(--bh-black) !important;
 }
 
 /* --- Form inputs --- */
 .form-control {
-    background-color: #2b2b2b !important;
-    border-color: #555 !important;
-    color: #e0e0e0 !important;
+    background-color: var(--bh-white) !important;
+    border-color: var(--bh-gray) !important;
+    color: #2c3e50 !important;
+    border-radius: 3px !important;
 }
 .form-control:focus {
-    border-color: #cc0000 !important;
-    box-shadow: 0 0 6px rgba(204,0,0,0.4) !important;
+    border-color: var(--bh-navy) !important;
+    box-shadow: 0 0 6px rgba(27,42,74,0.25) !important;
 }
 
-/* --- Footer --- */
-.main-footer {
-    background-color: #0d0000 !important;
-    border-top: 2px solid #cc0000 !important;
-    color: #aaaaaa !important;
-}
-
-/* --- Navbar user menu --- */
-.skin-black .navbar-nav > .user-menu > .dropdown-menu {
-    background-color: #1a1a1a !important;
-    border: 1px solid #cc0000 !important;
-}
-.skin-black .navbar-nav > .user-menu > .dropdown-menu > li.user-footer {
-    background-color: #0d0000 !important;
-}
-.skin-black .navbar-nav > .user-menu > .dropdown-menu > li > a:hover {
-    background-color: #2a0000 !important;
-    color: #fff !important;
-}
-
-/* --- Page headers / breadcrumbs --- */
+/* --- Page headers --- */
 .content-header > h1 {
-    color: #ff4444 !important;
+    color: var(--bh-navy) !important;
+}
+.content-header > h1 > small {
+    color: var(--bh-gray-dark) !important;
 }
 .breadcrumb {
-    background-color: #1a1a1a !important;
+    background-color: var(--bh-bg) !important;
 }
 .breadcrumb > li > a {
-    color: #cc0000 !important;
+    color: var(--bh-navy) !important;
 }
 .breadcrumb > .active {
-    color: #aaa !important;
+    color: var(--bh-gray-dark) !important;
 }
 
 /* --- Labels / Badges --- */
 .label-primary, .badge-primary {
-    background-color: #cc0000 !important;
+    background-color: var(--bh-navy) !important;
+}
+.label-success {
+    background-color: var(--bh-mint-dark) !important;
+    color: var(--bh-black) !important;
+}
+.label-danger {
+    background-color: var(--bh-red) !important;
 }
 
-/* --- Scrollbar tùy chỉnh --- */
+/* --- Footer --- */
+.main-footer {
+    background-color: var(--bh-white) !important;
+    border-top: 2px solid var(--bh-mint) !important;
+    color: var(--bh-gray-dark) !important;
+}
+
+/* --- Navbar user menu --- */
+.skin-blue .navbar-nav > .user-menu > .dropdown-menu {
+    background-color: var(--bh-white) !important;
+    border: 1px solid var(--bh-gray) !important;
+    box-shadow: 0 4px 12px rgba(27,42,74,0.15) !important;
+}
+.skin-blue .navbar-nav > .user-menu > .dropdown-menu > li.user-footer {
+    background-color: var(--bh-bg) !important;
+    border-top: 1px solid var(--bh-gray) !important;
+}
+
+/* --- Accent / Highlight đỏ --- */
+.text-red, .text-danger { color: var(--bh-red) !important; }
+.bg-red { background-color: var(--bh-red) !important; }
+a:hover { color: var(--bh-red) !important; }
+
+/* --- Scrollbar --- */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: #1a1a1a; }
-::-webkit-scrollbar-thumb { background: #cc0000; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #ff0000; }
+::-webkit-scrollbar-track { background: var(--bh-bg); }
+::-webkit-scrollbar-thumb { background: var(--bh-navy); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--bh-mint-dark); }
+
+/* --- Icon fa màu mint --- */
+.fa { color: var(--bh-navy) !important; }

@@ -43,6 +43,41 @@ class ChamCongController extends Controller
 
         }
     }
+    public function adminChamCong(Request $request){
+        $extParams = $request->all();
+
+        // Lọc theo ngày, mặc định hôm nay
+        $ngay = isset($extParams['ngay']) ? $extParams['ngay'] : date('Y-m-d');
+
+        $list = DB::table('cham_cong as tb1')
+            ->select(
+                'tb1.id', 'tb1.id_nhan_vien', 'tb1.ngay_lam',
+                'tb1.gio_vao', 'tb1.gio_ra', 'tb1.trang_thai',
+                'tb2.ho_ten', 'tb3.ten_chuc_vu', 'tb4.ten_phong_ban'
+            )
+            ->leftJoin('nhan_vien as tb2', 'tb2.id', '=', 'tb1.id_nhan_vien')
+            ->leftJoin('chuc_vu as tb3', 'tb3.id', '=', 'tb2.id_chuc_vu')
+            ->leftJoin('phong_ban as tb4', 'tb4.id', '=', 'tb2.id_phong_ban')
+            ->where('tb1.ngay_lam', $ngay)
+            ->orderBy('tb4.ten_phong_ban')
+            ->orderBy('tb3.ten_chuc_vu')
+            ->orderBy('tb1.gio_vao')
+            ->get();
+
+        // Lấy danh sách nhân viên chưa chấm công hôm nay
+        $daChamIds = $list->pluck('id_nhan_vien')->toArray();
+        $chuaCham = DB::table('nhan_vien as tb1')
+            ->select('tb1.id', 'tb1.ho_ten', 'tb2.ten_chuc_vu', 'tb3.ten_phong_ban')
+            ->leftJoin('chuc_vu as tb2', 'tb2.id', '=', 'tb1.id_chuc_vu')
+            ->leftJoin('phong_ban as tb3', 'tb3.id', '=', 'tb1.id_phong_ban')
+            ->where('tb1.trang_thai', 1)
+            ->whereNotIn('tb1.id', $daChamIds)
+            ->orderBy('tb3.ten_phong_ban')
+            ->get();
+
+        return view('nhanvien.admin-cham-cong', compact('list', 'ngay', 'extParams', 'chuaCham'));
+    }
+
     public function chamRaVe($id, Request $request){
         $objCongNhanVien = new CongNhanVien();
         $objIDNV = $objCongNhanVien->loadOneID($id);

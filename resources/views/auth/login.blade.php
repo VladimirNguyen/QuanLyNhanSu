@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>HADES - Quản Lý Nhân Sự</title>
+    <title>BadHabit - Quản Lý Nhân Sự</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -30,88 +30,72 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <!--[if IE]>
-    <style>
-        .login-box-body{
-            border: 1px solid #ddd;
-        }
-    </style>
-    <![endif]-->
     <style>
         body.login-page {
-            background: #0d0000 !important;
-            background-image: radial-gradient(ellipse at top, #2a0000 0%, #0d0000 70%) !important;
+            background-image: linear-gradient(135deg, #1B2A4A 0%, #243558 40%, #1C1C2E 100%) !important;
             min-height: 100vh;
         }
-        .login-box {
-            padding-top: 50px;
-        }
+        .login-box { padding-top: 50px; }
         .login-logo {
-            background: #1a0000;
+            background: #1B2A4A;
             margin-bottom: 0;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-            box-shadow: 0 1px 4px 0 rgba(204,0,0,0.3), 0 2px 10px 0 rgba(204,0,0,0.2) !important;
-            border-top: 3px solid #cc0000;
-            padding: 20px 10px 15px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            box-shadow: 0 2px 12px rgba(27,42,74,0.4);
+            border-top: 3px solid #A8D8C8;
+            padding: 24px 10px 18px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
         .login-logo img {
-            width: 70px;
-            height: 70px;
-            border-radius: 8px;
-            border: 2px solid #cc0000;
-            box-shadow: 0 0 15px rgba(204,0,0,0.5);
+            width: 72px;
+            height: 72px;
+            border-radius: 10px;
+            border: 2px solid #A8D8C8;
+            box-shadow: 0 0 16px rgba(168,216,200,0.4);
         }
         .login-logo a {
             text-transform: uppercase;
-            font-size: 28px;
+            font-size: 26px;
             color: #fff !important;
             font-family: 'Source Sans Pro', sans-serif;
             font-weight: 700;
             letter-spacing: 4px;
-            text-shadow: 0 0 10px rgba(204,0,0,0.8);
         }
         .login-logo .tagline {
-            color: #cc0000;
-            font-size: 12px;
+            color: #A8D8C8;
+            font-size: 11px;
             letter-spacing: 2px;
             text-transform: uppercase;
         }
         .login-box-body {
-            background: #1a1a1a !important;
-            border-bottom-left-radius: 5px;
-            border-bottom-right-radius: 5px;
-            box-shadow: 0 1px 4px 0 rgba(204,0,0,0.2), 0 2px 10px 0 rgba(0,0,0,0.5) !important;
-            border: 1px solid #333;
+            background: #ffffff !important;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            box-shadow: 0 4px 16px rgba(27,42,74,0.2) !important;
+            border: 1px solid #e0e6ed;
             border-top: none;
         }
         .login-box-msg {
             text-align: center;
             margin-top: 10px;
             font-weight: bold;
-            color: #cc0000 !important;
+            color: #C0392B !important;
         }
         .login-box-body .form-control {
-            background-color: #2b2b2b !important;
-            border-color: #444 !important;
-            color: #e0e0e0 !important;
+            background-color: #f8fafc !important;
+            border-color: #B0BEC5 !important;
+            color: #2c3e50 !important;
         }
         .login-box-body .form-control:focus {
-            border-color: #cc0000 !important;
-            box-shadow: 0 0 6px rgba(204,0,0,0.4) !important;
+            border-color: #1B2A4A !important;
+            box-shadow: 0 0 6px rgba(27,42,74,0.25) !important;
         }
-        .login-box-body .form-control::placeholder {
-            color: #888 !important;
-        }
-        .login-box-body .glyphicon {
-            color: #cc0000 !important;
-        }
+        .login-box-body .glyphicon { color: #1B2A4A !important; }
         .btn-login {
-            background: #cc0000 !important;
+            background: #1B2A4A !important;
             color: #fff !important;
             border: none;
             font-weight: 700;
@@ -120,9 +104,8 @@
             transition: background 0.2s, box-shadow 0.2s;
         }
         .btn-login:hover {
-            background: #990000 !important;
-            color: #fff !important;
-            box-shadow: 0 0 10px rgba(204,0,0,0.5);
+            background: #A8D8C8 !important;
+            color: #1C1C2E !important;
         }
     </style>
 </head>
@@ -132,8 +115,8 @@
 @endif
 <div class="login-box">
     <div class="login-logo">
-        <img src="/img/hades-logo.png" alt="Hades Logo">
-        <a href="/">HADES</a>
+        <img src="{{ asset('img/badhabit-logo.png') }}" alt="Hades Logo">
+        <a href="/">BadHabit</a>
         <span class="tagline">Hệ Thống Quản Lý Nhân Sự</span>
     </div>
     <!-- /.login-logo -->

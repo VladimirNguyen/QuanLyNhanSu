@@ -1,4 +1,4 @@
-@php
+﻿@php
     $objUser = \Illuminate\Support\Facades\Auth::user();
 @endphp
     <!DOCTYPE html>
@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Hades - Quản Lý Nhân Sự</title>
+    <title>BadHabit - Quản Lý Nhân Sự</title>
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -117,7 +117,7 @@
         var sapp = new Object();
     </script>
 </head>
-<body class="hold-transition skin-black sidebar-mini fixed">
+<body class="hold-transition skin-blue sidebar-mini fixed">
 <script>
     (function () {
         if (Boolean(localStorage.getItem('sidebar-toggle-collapsed'))) {
@@ -140,12 +140,12 @@
 
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini">
-        <img src="/img/hades-logo.png" width="40" style="border-radius:4px;">
+        <img src="{{ asset('img/badhabit-logo.png') }}" width="40" style="border-radius:4px;">
       </span>
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg" style="display:flex;align-items:center;gap:8px;">
-      <img src="/img/hades-logo.png" width="40" height="40" style="border-radius:4px;">
-      <span style="font-family:'Source Sans Pro',sans-serif;font-weight:700;font-size:20px;color:#fff;letter-spacing:2px;text-transform:uppercase;">HADES</span>
+      <img src="{{ asset('img/badhabit-logo.png') }}" width="40" height="40" style="border-radius:4px;">
+      <span style="font-family:'Source Sans Pro',sans-serif;font-weight:700;font-size:20px;color:#fff;letter-spacing:2px;text-transform:uppercase;">BadHabit</span>
       </span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
@@ -230,7 +230,7 @@
 
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="/img/no-avartar.png" class="user-image" alt="User Image">
+                            <img src="{{ asset('img/badhabit-logo.png') }}" class="user-image" alt="User Image" style="border-radius:4px;">
                             <span class="hidden-xs"> {{ $objUser->name }} </span>
                         </a>
                         <ul class="dropdown-menu">
@@ -298,7 +298,7 @@
             <!-- Sidebar user panel -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="/img/no-avartar.png" class="img-circle" alt="User Image">
+                    <img src="{{ asset('img/badhabit-logo.png') }}" class="img-circle" alt="User Image" style="border-radius:4px;">
                 </div>
                 <div class="pull-left info">
                     <p> {{ $objUser->name }} </p>
@@ -402,6 +402,9 @@
                             <li><a href="{{ route('route_BackEnd_HeSoLuong_List') }}"><i
                                             class="fa fa-circle-o"></i>Danh sách hệ số lương</a></li>
                         </ul>
+                    </li>
+                    <li class=" active menu-open ">
+                        <a href="{{ route('route_BackEnd_Admin_ChamCong') }}"><i class="fa fa-clock-o"></i> <span>Theo dõi chấm công</span></a>
                     </li>
                     <?php }?>
 {{--                <li class=" active menu-open ">--}}
