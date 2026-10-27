@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>QUẢN TRỊ HỆ THỐNG - Công ty TNHH PH</title>
+    <title>HADES - Quản Lý Nhân Sự</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -38,40 +38,91 @@
     </style>
     <![endif]-->
     <style>
-        .login-page{
-            background: #fff;
+        body.login-page {
+            background: #0d0000 !important;
+            background-image: radial-gradient(ellipse at top, #2a0000 0%, #0d0000 70%) !important;
+            min-height: 100vh;
         }
-        .logo-login{
-            text-align: center;
+        .login-box {
+            padding-top: 50px;
         }
-        .login-box-msg{
-            text-align: center;
-            margin-top:10px;
-            font-weight: bold;
-        }
-        .login-box-body{
-            border-bottom-left-radius: 5px;
-            border-bottom-right-radius: 5px;
-            box-shadow: 0 1px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)!important;
-        }
-        .login-logo{
-            /*margin-top: 50px;*/
-            background: #f9b638;
+        .login-logo {
+            background: #1a0000;
             margin-bottom: 0;
             border-top-left-radius: 5px;
             border-top-right-radius: 5px;
-            box-shadow: 0 1px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)!important;
+            box-shadow: 0 1px 4px 0 rgba(204,0,0,0.3), 0 2px 10px 0 rgba(204,0,0,0.2) !important;
+            border-top: 3px solid #cc0000;
+            padding: 20px 10px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
         }
-        .login-box{
-            padding-top:50px;
+        .login-logo img {
+            width: 70px;
+            height: 70px;
+            border-radius: 8px;
+            border: 2px solid #cc0000;
+            box-shadow: 0 0 15px rgba(204,0,0,0.5);
         }
-        .btn-login{
-            background: #f9b638;
-            color: #fff;
+        .login-logo a {
+            text-transform: uppercase;
+            font-size: 28px;
+            color: #fff !important;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-shadow: 0 0 10px rgba(204,0,0,0.8);
         }
-        .btn-login:hover{
-            background: #f1ba54;
-            color:#fff;
+        .login-logo .tagline {
+            color: #cc0000;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .login-box-body {
+            background: #1a1a1a !important;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            box-shadow: 0 1px 4px 0 rgba(204,0,0,0.2), 0 2px 10px 0 rgba(0,0,0,0.5) !important;
+            border: 1px solid #333;
+            border-top: none;
+        }
+        .login-box-msg {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #cc0000 !important;
+        }
+        .login-box-body .form-control {
+            background-color: #2b2b2b !important;
+            border-color: #444 !important;
+            color: #e0e0e0 !important;
+        }
+        .login-box-body .form-control:focus {
+            border-color: #cc0000 !important;
+            box-shadow: 0 0 6px rgba(204,0,0,0.4) !important;
+        }
+        .login-box-body .form-control::placeholder {
+            color: #888 !important;
+        }
+        .login-box-body .glyphicon {
+            color: #cc0000 !important;
+        }
+        .btn-login {
+            background: #cc0000 !important;
+            color: #fff !important;
+            border: none;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        .btn-login:hover {
+            background: #990000 !important;
+            color: #fff !important;
+            box-shadow: 0 0 10px rgba(204,0,0,0.5);
         }
     </style>
 </head>
@@ -81,7 +132,9 @@
 @endif
 <div class="login-box">
     <div class="login-logo">
-        <a href="/" style="text-transform: uppercase;font-size: 30px;color:#fff;"><b>Đăng nhập</b></a>
+        <img src="/img/hades-logo.png" alt="Hades Logo">
+        <a href="/">HADES</a>
+        <span class="tagline">Hệ Thống Quản Lý Nhân Sự</span>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">

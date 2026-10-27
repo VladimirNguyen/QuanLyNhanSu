@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Công ty TNHH PH</title>
+    <title>Hades - Quản Lý Nhân Sự</title>
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -117,7 +117,7 @@
         var sapp = new Object();
     </script>
 </head>
-<body class="hold-transition skin-blue sidebar-mini fixed">
+<body class="hold-transition skin-black sidebar-mini fixed">
 <script>
     (function () {
         if (Boolean(localStorage.getItem('sidebar-toggle-collapsed'))) {
@@ -140,16 +140,12 @@
 
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini">
-{{--        <img src="/public/img/logo-itplus-black.png" width="50">--}}
-        <img src="/img/logo.jpg" width="50">
-{{--        <img src="/public/img/lg-tet.png" width="50">--}}
+        <img src="/img/hades-logo.png" width="40" style="border-radius:4px;">
       </span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg">
-{{--      <img src="/public/img/logo-itplus-black.png" height="40">--}}
-      <img src="/img/logo.jpg" width="70px" height="60px">
-{{--      <img src="/public/img/lg-tet.png" height="45">--}}
-                {{--<b class="visible-lg">Quản lý Đào tạo</b>--}}
+            <span class="logo-lg" style="display:flex;align-items:center;gap:8px;">
+      <img src="/img/hades-logo.png" width="40" height="40" style="border-radius:4px;">
+      <span style="font-family:'Source Sans Pro',sans-serif;font-weight:700;font-size:20px;color:#fff;letter-spacing:2px;text-transform:uppercase;">HADES</span>
       </span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->

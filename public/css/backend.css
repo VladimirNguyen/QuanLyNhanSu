@@ -235,3 +235,184 @@ Cho loading
         transform: rotate(360deg);
     }
 }
+
+
+/* ============================================================
+   HADES - Theme Đỏ Đen
+   ============================================================ */
+
+/* --- Header & Logo --- */
+.skin-black .main-header,
+.skin-black .main-header .navbar {
+    background-color: #1a0000 !important;
+    border-bottom: 2px solid #cc0000 !important;
+}
+.skin-black .main-header .logo {
+    background-color: #0d0000 !important;
+    border-right: 1px solid #cc0000 !important;
+    transition: background 0.2s;
+}
+.skin-black .main-header .logo:hover {
+    background-color: #2a0000 !important;
+}
+.skin-black .main-header .navbar .sidebar-toggle:hover {
+    background-color: #cc0000 !important;
+}
+.skin-black .main-header .navbar .sidebar-toggle {
+    color: #fff !important;
+}
+
+/* --- Sidebar --- */
+.skin-black .main-sidebar,
+.skin-black .left-side {
+    background-color: #111111 !important;
+}
+.skin-black .sidebar-menu > li > a {
+    color: #dddddd !important;
+    border-left: 3px solid transparent;
+    transition: all 0.2s;
+}
+.skin-black .sidebar-menu > li:hover > a,
+.skin-black .sidebar-menu > li.active > a {
+    color: #fff !important;
+    background-color: #2a0000 !important;
+    border-left: 3px solid #cc0000 !important;
+}
+.skin-black .sidebar-menu > li > .treeview-menu {
+    background-color: #1a1a1a !important;
+}
+.skin-black .treeview-menu > li > a {
+    color: #bbbbbb !important;
+}
+.skin-black .treeview-menu > li > a:hover {
+    color: #ff4444 !important;
+}
+.skin-black .sidebar-menu > li > a > .fa {
+    color: #cc0000 !important;
+}
+
+/* User panel sidebar */
+.skin-black .user-panel {
+    border-bottom: 1px solid #cc0000 !important;
+    background-color: #0d0000 !important;
+}
+.skin-black .user-panel .info p {
+    color: #ffffff !important;
+}
+
+/* --- Content area --- */
+.content-wrapper {
+    background-color: #1c1c1c !important;
+    color: #e0e0e0 !important;
+}
+
+/* --- Cards / Boxes --- */
+.box {
+    background: #222222 !important;
+    border-top: 3px solid #cc0000 !important;
+    color: #e0e0e0 !important;
+    box-shadow: 0 2px 8px rgba(204,0,0,0.15) !important;
+}
+.box-header {
+    background: #2a0000 !important;
+    color: #fff !important;
+    border-bottom: 1px solid #cc0000 !important;
+}
+.box-header .box-title {
+    color: #fff !important;
+}
+
+/* --- Tables --- */
+.table > thead > tr > th {
+    background-color: #2a0000 !important;
+    color: #fff !important;
+    border-color: #cc0000 !important;
+}
+.table > tbody > tr > td,
+.table > tbody > tr > th {
+    background-color: #1e1e1e !important;
+    color: #dddddd !important;
+    border-color: #333 !important;
+}
+.table-striped > tbody > tr:nth-of-type(odd) > td {
+    background-color: #252525 !important;
+}
+.table-hover > tbody > tr:hover > td {
+    background-color: #3a0000 !important;
+    color: #fff !important;
+}
+
+/* --- Buttons --- */
+.btn-primary {
+    background-color: #cc0000 !important;
+    border-color: #990000 !important;
+    color: #fff !important;
+}
+.btn-primary:hover {
+    background-color: #990000 !important;
+}
+.btn-default {
+    background-color: #333 !important;
+    border-color: #555 !important;
+    color: #ddd !important;
+}
+.btn-default:hover {
+    background-color: #444 !important;
+    color: #fff !important;
+}
+
+/* --- Form inputs --- */
+.form-control {
+    background-color: #2b2b2b !important;
+    border-color: #555 !important;
+    color: #e0e0e0 !important;
+}
+.form-control:focus {
+    border-color: #cc0000 !important;
+    box-shadow: 0 0 6px rgba(204,0,0,0.4) !important;
+}
+
+/* --- Footer --- */
+.main-footer {
+    background-color: #0d0000 !important;
+    border-top: 2px solid #cc0000 !important;
+    color: #aaaaaa !important;
+}
+
+/* --- Navbar user menu --- */
+.skin-black .navbar-nav > .user-menu > .dropdown-menu {
+    background-color: #1a1a1a !important;
+    border: 1px solid #cc0000 !important;
+}
+.skin-black .navbar-nav > .user-menu > .dropdown-menu > li.user-footer {
+    background-color: #0d0000 !important;
+}
+.skin-black .navbar-nav > .user-menu > .dropdown-menu > li > a:hover {
+    background-color: #2a0000 !important;
+    color: #fff !important;
+}
+
+/* --- Page headers / breadcrumbs --- */
+.content-header > h1 {
+    color: #ff4444 !important;
+}
+.breadcrumb {
+    background-color: #1a1a1a !important;
+}
+.breadcrumb > li > a {
+    color: #cc0000 !important;
+}
+.breadcrumb > .active {
+    color: #aaa !important;
+}
+
+/* --- Labels / Badges --- */
+.label-primary, .badge-primary {
+    background-color: #cc0000 !important;
+}
+
+/* --- Scrollbar tùy chỉnh --- */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #1a1a1a; }
+::-webkit-scrollbar-thumb { background: #cc0000; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #ff0000; }
