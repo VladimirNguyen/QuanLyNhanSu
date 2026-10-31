@@ -224,6 +224,9 @@ Route::post('/taisan-category/update/{id}', 'TaiSanController@updateChiTietDanhM
     // Admin xem chấm công tất cả nhân viên
     Route::get('/admin/cham-cong', 'ChamCongController@adminChamCong')
         ->name('route_BackEnd_Admin_ChamCong');
+    Route::post('/admin/cham-cong/{id}', 'ChamCongController@updateAttendance')
+        ->where('id', '[0-9]+')
+        ->name('route_BackEnd_Admin_ChamCong_Update');
 });
 $middleware = ['checknhanvien.expired'];
 //Phân quyền nhân viên
@@ -249,15 +252,12 @@ Route::middleware(['auth','checknhanvien.expired'])->group(function () {
 
 });
 Route::middleware(['auth','checknhanvien.expired'])->group(function () {
-    Route::get('/cong-nhan-vien/add/{id}', 'ChamCongController@themCongNgay')
+    Route::post('/cong-nhan-vien/add/{id}', 'ChamCongController@themCongNgay')
         ->where('id', '[0-9]+')
         ->name('route_BackEnd_CongNhanVien_Add');
     Route::post('/cong-nhan-vien/update/{id}', 'ChamCongController@chamRaVe')
         ->where('id', '[0-9]+')
         ->name('route_BackEnd_CongNhanVien_Update');
-    Route::post('/cong-nhan-vien/update-gio/{id}', 'ChamCongController@updateGioKetCa')
-        ->where('id', '[0-9]+')
-        ->name('route_BackEnd_CongNhanVien_UpdateGio');
 });
 
 Route::middleware(['auth','admin'])->get('/bang-luong', 'PayrollController@index')->name('payroll.index');
