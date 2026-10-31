@@ -68,4 +68,35 @@ class AccessAndAttendanceTest extends TestCase {
   $this->assertStringContainsString('/cong-nhan-vien/add/1', $forms->item(0)->getAttribute('action'));
   $this->assertSame(1, $xpath->query('.//input[@name="_token"]', $forms->item(0))->length);
  }
+ private function payrollTables() {
+  foreach (['2022_05_15_132856_create_he_so_luong_table.php','2022_05_15_135434_create_nhan_vien_he_so_table.php','2022_06_11_162016_create_phu_cap_table.php','2022_06_11_162148_create_phu_cap_nhan_vien_table.php'] as $f) require_once database_path('migrations/'.$f);
+  (new \CreateHeSoLuongTable)->up(); (new \CreateNhanVienHeSoTable)->up(); (new \CreatePhuCapTable)->up(); (new \CreatePhuCapNhanVienTable)->up();
+ }
+ public function test_monthly_payroll_counts_unique_days_and_strict_late_boundary() {
+  $this->employee(1);$this->employee(2);$this->payrollTables();
+  DB::table('he_so_luong')->insert(['id'=>1,'ten_he_so'=>'Mức 1','luong'=>5200000,'ghi_chu'=>'']);
+  DB::table('nhan_vien_he_so')->insert(['id_nhan_vien'=>1,'id_he_so'=>1,'ghi_chu'=>'']);
+  DB::table('phu_cap')->insert([['id'=>1,'ten_phu_cap'=>'Ăn','gia_tien'=>300000,'trang_thai'=>1],['id'=>2,'ten_phu_cap'=>'Cũ','gia_tien'=>999999,'trang_thai'=>1]]);
+  DB::table('phu_cap_nhan_vien')->insert([['id_nhan_vien'=>1,'id_phu_cap'=>1,'trang_thai'=>1],['id_nhan_vien'=>1,'id_phu_cap'=>1,'trang_thai'=>1],['id_nhan_vien'=>1,'id_phu_cap'=>2,'trang_thai'=>0]]);
+  foreach ([['2026-10-01','08:00:00'],['2026-10-02','09:00:00'],['2026-10-03','09:00:01'],['2026-10-01','10:00:00'],['2026-09-30','08:00:00']] as [$day,$time]) DB::table('cham_cong')->insert(['id_nhan_vien'=>1,'ngay_lam'=>$day,'gio_vao'=>$time]);
+  $rows=app(\App\Services\PayrollSummary::class)->forMonth('2026-10',1);$r=$rows[0];
+  $this->assertSame(3,$r['days']);$this->assertSame(1,$r['late']);$this->assertEquals(2.5,$r['units']);
+  $this->assertEquals(500000,$r['base']);$this->assertEquals(300000,$r['allowance']);$this->assertEquals(800000,$r['total']);
+  $empty=app(\App\Services\PayrollSummary::class)->forMonth('2026-11',1)[0];
+  $this->assertSame(0,$empty['days']);$this->assertEquals(300000,$empty['total']);
+  $none=app(\App\Services\PayrollSummary::class)->forMonth('2026-10',2)[0];
+  $this->assertSame(0,$none['days']);$this->assertNull($none['total']);
+ }
+ public function test_employee_can_view_own_allowances_and_payroll_but_not_others() {
+  $a=$this->employee(1);$this->employee(2);$this->payrollTables();
+  $this->actingAs($a)->get('/danh-sach-phu-cap-nhan-vien/1')->assertOk();
+  $this->get('/danh-sach-phu-cap-nhan-vien/2')->assertForbidden();
+  $this->get('/bang-luong/nhan-vien/1?month=2026-10')->assertOk()->assertSee('Bảng lương tổng hợp')->assertSee('Chưa thiết lập');
+  $this->get('/bang-luong/nhan-vien/2')->assertForbidden();$this->get('/bang-luong')->assertForbidden();
+  $this->get('/bang-luong/nhan-vien/1?month=invalid')->assertSessionHasErrors('month');
+ }
+ public function test_admin_can_view_monthly_summary() {
+  $user=$this->employee(1);$user->level=1;$user->save();$this->payrollTables();
+  $this->actingAs($user)->get('/bang-luong?month=2026-10')->assertOk();
+ }
 }

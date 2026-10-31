@@ -333,27 +333,29 @@
 
             ?>
             <ul class="sidebar-menu" data-widget="tree">
+                <?php $ownEmployeeId = $query->level == 2 ? DB::table('nhan_vien')->where('id_user', $idUser)->value('id') : null; ?>
                 <?php if($query->level == 2){ ?>
                     <li class=" active menu-open ">
                         <a href=""><i class="fa fa-user"></i> <span>Hồ Sơ Thông Tin Nhân Viên</span></a>
                         <ul class="treeview-menu">
-                            <li><a href="{{ route('route_BackEnd_FrNhanVien_List',['id'=>request()->route('id')]) }}"><i
+                            <li><a href="{{ route('route_BackEnd_FrNhanVien_List',['id'=>$ownEmployeeId]) }}"><i
                                             class="fa fa-circle-o"></i> Chi tiết thông tin nhân viên</a></li>
                         </ul>
                         <ul class="treeview-menu">
-                            <li><a href="{{ route('route_BackEnd_FrTaiKhoanNhanVien_List',['id'=>request()->route('id')]) }}"><i
+                            <li><a href="{{ route('route_BackEnd_FrTaiKhoanNhanVien_List',['id'=>$ownEmployeeId]) }}"><i
                                             class="fa fa-circle-o"></i> Tài khoản</a></li>
                         </ul>
                     </li>
                     <li class=" active menu-open ">
-                        <a href="{{ route('route_BackEnd_CongNhanVien_List',['id'=>request()->route('id')]) }}"><i class="fa fa-user"></i> <span>Chấm Công</span></a>
+                        <a href="{{ route('route_BackEnd_CongNhanVien_List',['id'=>$ownEmployeeId]) }}"><i class="fa fa-user"></i> <span>Chấm Công</span></a>
                     </li>
                     <li class=" active menu-open ">
-                        <a href="{{ route('route_BackEnd_FrLichSuNhanVien_List',['id'=>request()->route('id')]) }}"><i class="fa fa-user"></i> <span>Hệ số lương</span></a>
+                        <a href="{{ route('route_BackEnd_FrLichSuNhanVien_List',['id'=>$ownEmployeeId]) }}"><i class="fa fa-user"></i> <span>Hệ số lương</span></a>
                     </li>
                     <li class=" active menu-open ">
-                        <a href="{{ route('route_BackEnd_FRPhuCap_List',['id'=>request()->route('id')]) }}"><i class="fa fa-user"></i> <span>Hệ số phụ cấp</span></a>
+                        <a href="{{ route('route_BackEnd_FRPhuCap_List',['id'=>$ownEmployeeId]) }}"><i class="fa fa-user"></i> <span>Phụ cấp của tôi</span></a>
                     </li>
+                    <li><a href="{{ route('payroll.employee', ['id'=>$ownEmployeeId]) }}"><i class="fa fa-money"></i> <span>Bảng lương của tôi</span></a></li>
                     <?php }elseif ($query->level == 1){?>
                 <li class=" active menu-open ">
                     <a href="#"><i class="fa fa-user"></i> <span>Người dùng</span></a>
@@ -406,6 +408,7 @@
                     <li class=" active menu-open ">
                         <a href="{{ route('route_BackEnd_Admin_ChamCong') }}"><i class="fa fa-clock-o"></i> <span>Theo dõi chấm công</span></a>
                     </li>
+                    <li><a href="{{ route('payroll.index') }}"><i class="fa fa-money"></i> <span>Bảng lương tổng hợp</span></a></li>
                     <?php }?>
 {{--                <li class=" active menu-open ">--}}
 {{--                    </a>--}}
