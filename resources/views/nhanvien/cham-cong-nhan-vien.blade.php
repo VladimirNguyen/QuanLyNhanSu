@@ -254,10 +254,44 @@
                                     @endif
                                 </td>
 
-                                @if($item->gio_ra >0)
-                                    <td class="text-center"></td>
+                                @if($item->gio_ra != '00:00:00' && $item->gio_ra)
+                                    <td class="text-center">
+                                        <span style="color:#7EC8B0;font-size:12px;font-weight:600;">
+                                            <i class="fa fa-check-circle"></i> {{ date('H:i', strtotime($item->gio_ra)) }}
+                                        </span>
+                                    </td>
                                 @else
-                                    <td class="text-center"><form method="POST" action="{{ route('route_BackEnd_CongNhanVien_Update',['id'=> $item->id]) }}" style="display:inline">@csrf<button type="submit"   title="Chấm công ra về"><i class="fa fa-edit"></i></button></form></td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-xs" style="background:#C0392B;color:#fff;font-weight:700;"
+                                            data-toggle="modal" data-target="#modalKetCa{{ $item->id }}">
+                                            <i class="fa fa-sign-out"></i> Kết Ca
+                                        </button>
+                                        <div class="modal fade" id="modalKetCa{{ $item->id }}" tabindex="-1" role="dialog">
+                                            <div class="modal-dialog modal-sm">
+                                                <div class="modal-content">
+                                                    <div class="modal-header" style="background:#1B2A4A;padding:10px 15px;">
+                                                        <button type="button" class="close" data-dismiss="modal" style="color:#fff;opacity:1;"><span>&times;</span></button>
+                                                        <h4 class="modal-title" style="color:#fff;"><i class="fa fa-clock-o"></i> Nhập Giờ Kết Ca</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Ngày làm: <strong>{{ date('d/m/Y', strtotime($item->ngay_lam)) }}</strong></p>
+                                                        <p>Giờ vào: <strong>{{ date('H:i', strtotime($item->gio_vao)) }}</strong></p>
+                                                        <form method="POST" action="{{ route('route_BackEnd_CongNhanVien_UpdateGio', ['id'=>$item->id]) }}">
+                                                            @csrf
+                                                            <div class="form-group">
+                                                                <label style="font-weight:600;">Giờ kết ca:</label>
+                                                                <input type="time" name="gio_ra" class="form-control"
+                                                                    value="{{ date('H:i') }}" required>
+                                                            </div>
+                                                            <button type="submit" class="btn btn-block btn-sm" style="background:#1B2A4A;color:#fff;font-weight:700;margin-top:8px;">
+                                                                <i class="fa fa-check"></i> Xác Nhận Kết Ca
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
                                 @endif
 
                             </tr>
