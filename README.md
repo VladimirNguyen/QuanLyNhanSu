@@ -32,3 +32,13 @@ Các test AccessAndAttendanceTest dùng SQLite trong bộ nhớ, không đụng 
 Các kiểm tra gồm: nhân viên không truy cập quản trị; không đổi mật khẩu hoặc chấm công cho người khác; đổi mật khẩu của chính mình; chấm công trùng; GET không ghi công; đăng ký chưa có hồ sơ; tách route biên bản và phụ cấp.
 
 Bản sửa giữ nguyên mật khẩu mặc định khi tạo tài khoản nhân viên theo yêu cầu. Test đã chạy với PHP 8.3.6 và SQLite (8 tests / 22 assertions); môi trường kiểm thử phải bỏ kiểm tra giới hạn PHP phía trên của lock file để cài các dependency cũ. Khi chạy thông thường, dùng PHP 8.1/8.2 thay vì bỏ kiểm tra tương thích. Chưa kiểm thử toàn bộ nghiệp vụ bằng MySQL hoặc trình duyệt.
+
+## Bảng lương và phụ cấp nhân viên
+
+- Admin: mục **Bảng lương tổng hợp** (`/bang-luong`), chọn tháng.
+- Nhân viên: **Phụ cấp của tôi** và **Bảng lương của tôi**, chỉ đọc hồ sơ thuộc tài khoản đang đăng nhập.
+- Công tính từ ngày có chấm vào đang hoạt động, không bắt buộc đã chấm ra. Một ngày chỉ tính một lần, dùng giờ vào sớm nhất nếu dữ liệu cũ bị trùng.
+- Cấu hình tại `config/payroll.php`: bắt đầu ca 08:00, cho phép muộn 60 phút. Đúng 09:00 đủ công, sau 09:00 trừ 0,5 công mỗi ngày.
+- Dữ liệu `he_so_luong.luong` đang là mức tiền lương tháng. Đơn giá ngày = mức tháng / 26; tổng = công được hưởng × đơn giá ngày + phụ cấp hoạt động (cộng một lần/tháng, không cộng trùng cùng loại). Phụ cấp cố định vẫn cộng khi chưa có công trong tháng.
+- Đây là bảng **tạm tính theo mức lương/phụ cấp hiện tại**, không lưu chốt lịch sử, không tính tăng ca hoặc khấu trừ khác. Chưa gán mức lương sẽ báo rõ, không tự coi là lương 0.
+- Không cần migration mới. Kiểm thử sau bổ sung: 12 test / 45 assertions đạt trên PHP 8.3.6 + SQLite; Blade biên dịch thành công. Chưa kiểm thử toàn bộ MySQL/trình duyệt.

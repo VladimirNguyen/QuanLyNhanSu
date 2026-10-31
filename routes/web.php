@@ -195,9 +195,7 @@ Route::post('/taisan-category/update/{id}', 'TaiSanController@updateChiTietDanhM
         ->name('route_BackEnd_TaiSanCon_InBienBanThanhLi_Update');
     //Phụ Cấp
     Route::get('/danh-sach-phu-cap/lists', 'PhuCapController@danhSachPhuCap')->name('route_BackEnd_PhuCap_List');
-    Route::get('/danh-sach-phu-cap-nhan-vien/{id}', 'PhuCapController@frdanhSachPhuCap')
-        ->where('id', '[0-9]+')
-        ->name('route_BackEnd_FRPhuCap_List');
+
     Route::match(['get', 'post'], '/phuc-cap/add', 'PhuCapController@themPhuCap')
         ->name('route_BackEnd_PhuCap_Add');
     Route::get('/phu-cap/detail/{id}', 'PhuCapController@chitetPhuCap')
@@ -257,4 +255,12 @@ Route::middleware(['auth','checknhanvien.expired'])->group(function () {
     Route::post('/cong-nhan-vien/update/{id}', 'ChamCongController@chamRaVe')
         ->where('id', '[0-9]+')
         ->name('route_BackEnd_CongNhanVien_Update');
+});
+
+Route::middleware(['auth','admin'])->get('/bang-luong', 'PayrollController@index')->name('payroll.index');
+Route::middleware(['auth','checknhanvien.expired'])->group(function () {
+    Route::get('/danh-sach-phu-cap-nhan-vien/{id}', 'PhuCapController@frdanhSachPhuCap')
+        ->where('id', '[0-9]+')
+        ->name('route_BackEnd_FRPhuCap_List');
+    Route::get('/bang-luong/nhan-vien/{id}', 'PayrollController@index')->where('id', '[0-9]+')->name('payroll.employee');
 });

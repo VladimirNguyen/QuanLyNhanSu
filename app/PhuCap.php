@@ -44,7 +44,7 @@ class PhuCap extends Model
         $query = DB::table($this->table . ' as tb1')
             ->select('tb1.id', 'tb1.ten_phu_cap','tb1.gia_tien', 'tb1.trang_thai')
             ->leftJoin('phu_cap_nhan_vien as tb2', 'tb2.id_phu_cap','=','tb1.id')
-            ->where('tb2.id_nhan_vien',$id);
+            ->where('tb2.id_nhan_vien',$id)->where('tb2.trang_thai', 1)->distinct();
         if(isset($params['search_ten_phu_cap']) && strlen($params['search_ten_phu_cap'])>0){
             $query->where('tb1.ten_phu_cap', 'like', '%' .$params['search_ten_phu_cap'].'%');
         }
