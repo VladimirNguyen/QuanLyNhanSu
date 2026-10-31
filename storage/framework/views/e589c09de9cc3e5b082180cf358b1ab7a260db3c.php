@@ -79,7 +79,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="ho_ten" class="col-md-3 col-sm-4 control-label">Tên nhân viên <span class="text-danger">(*)</span></label>
+                            <label for="ho_ten" class="col-md-3 col-sm-4 control-label">Tên Nhân Viên <span class="text-danger">(*)</span></label>
 
                             <div class="col-md-9 col-sm-8">
                                 <input type="text" name="ho_ten" id="ho_ten" class="form-control" value="<?php if(isset($request['ho_ten'])): ?>  <?php echo e($request['ho_ten']); ?> <?php else: ?> <?php echo e($objItem->ho_ten); ?> <?php endif; ?>" <?php if($objItem->ho_ten != ''): ?>  <?php endif; ?> disabled>
@@ -87,23 +87,16 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="ngay_sinh" class="col-md-3 col-sm-4 control-label">Ngày sinh<span class="text-danger">(*)</span></label>
+                            <label for="ngay_sinh" class="col-md-3 col-sm-4 control-label">Ngày Sinh<span class="text-danger">(*)</span></label>
 
                             <div class="col-md-9 col-sm-8">
-                                <?php
-                                $date = date('Y-m-d');
-                                $newdate = strtotime ( '-18 year' , strtotime ( $date ) ) ;
-                                $maxdate = date ( 'Y-m-d' , $newdate );
-                                $olddate = strtotime ( '-40 year' , strtotime ( $date ) ) ;
-                                $mindate = date ( 'Y-m-d' , $olddate );
-                                ?>
-                                <input type="date" name="ngay_sinh" id="ngay_sinh" min="<?php echo e($mindate); ?>" max="<?php echo e($maxdate); ?>" class="form-control" value="<?php if(isset($request['ngay_sinh'])): ?><?php echo e($request['ngay_sinh']); ?><?php else: ?><?php echo e($objItem->ngay_sinh); ?><?php endif; ?>"<?php if($objItem->ngay_sinh != ''): ?><?php endif; ?> disabled>
+                                <input type="text" name="ngay_sinh" id="ngay_sinh" class="form-control" value="<?php if(isset($request['ngay_sinh'])): ?>  <?php echo e($request['ngay_sinh']); ?> <?php else: ?> <?php echo e($objItem->ngay_sinh); ?> <?php endif; ?>" <?php if($objItem->ngay_sinh != ''): ?>  <?php endif; ?> disabled>
                                 <span id="mes_sdt"></span>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="gioi_tinh" class="col-md-3 col-sm-4 control-label">Giới tính <span class="text-danger">(*)</span></label>
+                            <label for="gioi_tinh" class="col-md-3 col-sm-4 control-label">Giới Tính <span class="text-danger">(*)</span></label>
 
                             <div class="col-md-9 col-sm-8">
                                 <input type="text" name="gioi_tinh" id="gioi_tinh" class="form-control" value="<?php if(isset($request['gioi_tinh'])): ?>  <?php echo e($request['gioi_tinh']); ?> <?php else: ?> <?php echo e($objItem->gioi_tinh); ?> <?php endif; ?>" <?php if($objItem->gioi_tinh != ''): ?>  <?php endif; ?> disabled>
@@ -112,7 +105,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="dia_chi" class="col-md-3 col-sm-4 control-label">Địa chỉ <span class="text-danger">(*)</span></label>
+                            <label for="dia_chi" class="col-md-3 col-sm-4 control-label">Địa Chỉ <span class="text-danger">(*)</span></label>
 
                             <div class="col-md-9 col-sm-8">
                                 <input type="text" name="dia_chi" id="dia_chi" class="form-control" value="<?php if(isset($request['dia_chi'])): ?>  <?php echo e($request['dia_chi']); ?> <?php else: ?> <?php echo e($objItem->dia_chi); ?> <?php endif; ?>" <?php if($objItem->dia_chi != ''): ?>  <?php endif; ?> disabled>
@@ -120,7 +113,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="so_dien_thoai " class="col-md-3 col-sm-4 control-label">Số điện thoại <span class="text-danger">(*)</span></label>
+                            <label for="so_dien_thoai " class="col-md-3 col-sm-4 control-label">Số Địa Thoại <span class="text-danger">(*)</span></label>
 
                             <div class="col-md-9 col-sm-8">
                                 <input type="text" name="so_dien_thoai" id="so_dien_thoai" class="form-control" value="<?php if(isset($request['so_dien_thoai'])): ?>  <?php echo e($request['so_dien_thoai']); ?> <?php else: ?> <?php echo e($objItem->so_dien_thoai); ?> <?php endif; ?>" <?php if($objItem->so_dien_thoai != ''): ?>  <?php endif; ?> disabled>
@@ -128,7 +121,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="so_chung_minh" class="col-md-3 col-sm-4 control-label">Số chứng minh thư <span class="text-danger">(*)</span></label>
+                            <label for="so_chung_minh" class="col-md-3 col-sm-4 control-label">Số Chứng Minh Thư <span class="text-danger">(*)</span></label>
 
                             <div class="col-md-9 col-sm-8">
                                 <input type="text" name="so_chung_minh" id="so_chung_minh" class="form-control" value="<?php if(isset($request['so_chung_minh'])): ?>  <?php echo e($request['so_chung_minh']); ?> <?php else: ?> <?php echo e($objItem->so_chung_minh); ?> <?php endif; ?>" <?php if($objItem->so_chung_minh  != ''): ?>  <?php endif; ?> disabled>
@@ -175,73 +168,22 @@ unset($__errorArgs, $__bag); ?>" id="cmt_sau" disabled>
 
                             <div class="col-md-9 col-sm-8">
                                 <input type="text" name="email" id="email" class="form-control" value="<?php if(isset($request['email'])): ?>  <?php echo e($request['email']); ?> <?php else: ?> <?php echo e($objItem->email); ?> <?php endif; ?>" <?php if($objItem->email  != ''): ?>  <?php endif; ?> disabled>
-                                <span id="mes_sdt">Lưu ý khi sửa Email nhân viên cũng sẽ sửa Email tài khoản đăng nhập </span>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="id_phong_ban" class="col-md-3 col-sm-4 control-label">Phòng ban</label>
+                            <label for="id_phong_ban" class="col-md-3 col-sm-4 control-label">Phòng Ban</label>
                             <div class="col-md-9 col-sm-8">
-                                <select name="id_phong_ban" id="id_phong_ban" class="form-control select2"
-                                        data-placeholder="Chọn danh mục khoá học">
-                                    <option value="">== Chọn phòng ban ==</option>
-                                    <?php $__currentLoopData = $objPhongBan; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($item->id); ?>"
-                                                <?php if(isset($request['id_phong_ban'])): ?> <?php if($request['id_phong_ban'] == $item->id): ?> selected
-                                                <?php endif; ?> <?php else: ?> <?php if($objItem->id_phong_ban == $item->id): ?> selected <?php endif; ?> <?php endif; ?>>
-                                            <?php echo e($item->ten_phong_ban); ?>
-
-                                        </option>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                </select>
+                                <input type="text" name="email" id="email" class="form-control" value="<?php echo e($objPhongBan->ten_phong_ban); ?>"disabled>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="id_chuc_vu" class="col-md-3 col-sm-4 control-label">Chức vụ</label>
+                            <label for="id_chuc_vu" class="col-md-3 col-sm-4 control-label">Chức Vụ</label>
                             <div class="col-md-9 col-sm-8">
-                                <select name="id_chuc_vu" id="id_chuc_vu" class="form-control select2"
-                                        data-placeholder="Chọn danh mục khoá học">
-                                    <option value="">== Chọn chức vụ ==</option>
-                                    <?php $__currentLoopData = $objChucVu; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($item->id); ?>"<?php if(isset($request['id_chuc_vu'])): ?> <?php if($request['id_chuc_vu'] == $item->id): ?> selected
-                                                <?php endif; ?> <?php else: ?> <?php if($objItem->id_chuc_vu == $item->id): ?> selected <?php endif; ?> <?php endif; ?>>
-                                            <?php echo e($item->ten_chuc_vu); ?>
-
-                                        </option>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="id_he_so_luong" class="col-md-3 col-sm-4 control-label">Hệ số lương</label>
-                            <div class="col-md-9 col-sm-8">
-                                <select name="id_he_so_luong" id="id_he_so_luong" class="form-control select2"
-                                        data-placeholder="Chọn hệ số lương">
-                                    <option value="">== Chọn hệ số lương ==</option>
-                                    <?php $__currentLoopData = $objHeSoLuong; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($item->id); ?>" <?php if($objHeSoNV->id_he_so == $item->id): ?> selected <?php endif; ?>>
-                                            <?php echo e($item->ten_he_so); ?>( <?php echo e($item->luong); ?>)
-                                        </option>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="id_phu_cap" class="col-md-3 col-sm-4 control-label">Phụ cấp</label>
-                            <div class="col-md-9 col-sm-8">
-                                <select name="id_phu_cap[]" id="id_phu_cap[]" class="form-control select2" data-placeholder="Chọn nguồn" multiple>
-                                    <option value="" >== Chọn phụ cấp ==</option>
-                                    <?php $__currentLoopData = $objPhuCap; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($item->id); ?>" <?php $__currentLoopData = $objPhuCapNV; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $values): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> <?php if($values->id_phu_cap == $item->id): ?> selected <?php endif; ?> <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>><?php echo e($item->ten_phu_cap); ?></option>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                </select>
+                                <input type="text" name="email" id="email" class="form-control" value="<?php echo e($objChucVu->ten_chuc_vu); ?>"disabled>
                             </div>
                         </div>
                         <!-- /.box-body -->
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary"> Save</button>
-                            <a href="<?php echo e(route('route_BackEnd_DanhSachNhanVien_index')); ?>" class="btn btn-default">Cancel</a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -259,4 +201,4 @@ unset($__errorArgs, $__bag); ?>" id="cmt_sau" disabled>
 <?php $__env->stopSection(); ?>
 
 
-<?php echo $__env->make('templates.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\Download\QuanLyNhanSu\QuanLyNhanSu\resources\views/nhanvien/chi-tiet-nhan-vien.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('templates.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\Download\QuanLyNhanSu\QuanLyNhanSu\resources\views/nhanvien/fr-chi-tiet-thong-tin-nhan-vien.blade.php ENDPATH**/ ?>

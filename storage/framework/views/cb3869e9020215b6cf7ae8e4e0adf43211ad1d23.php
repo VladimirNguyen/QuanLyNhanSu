@@ -133,23 +133,23 @@
                                 &nbsp;|&nbsp; <span id="dongho" style="color:#C0392B;font-size:16px;font-weight:700;"></span>
                             </p>
                             <?php if(!$chamHomNay): ?>
-                                <a href="<?php echo e(route('route_BackEnd_CongNhanVien_Add', ['id'=>$idNV])); ?>"
+                                <form method="POST" action="<?php echo e(route('route_BackEnd_CongNhanVien_Add', ['id'=>$idNV])); ?>" style="display:inline"><?php echo csrf_field(); ?><button type="submit"  
                                    class="btn btn-lg"
                                    style="background:#1B2A4A;color:#fff;font-weight:700;padding:10px 30px;border-radius:6px;"
                                    onclick="return confirm('Xac nhan cham vao ca?')">
                                     <i class="fa fa-sign-in"></i> Cham Vao Ca
-                                </a>
+                                </button></form>
                             <?php elseif($chamHomNay && ($chamHomNay->gio_ra == '00:00:00' || !$chamHomNay->gio_ra)): ?>
                                 <span style="background:#e8f4f0;color:#1B2A4A;padding:8px 16px;border-radius:6px;font-weight:600;margin-right:12px;">
                                     <i class="fa fa-check-circle" style="color:#7EC8B0;"></i>
                                     Da vao ca luc: <strong><?php echo e(date('H:i', strtotime($chamHomNay->gio_vao))); ?></strong>
                                 </span>
-                                <a href="<?php echo e(route('route_BackEnd_CongNhanVien_Update', ['id'=>$chamHomNay->id])); ?>"
+                                <form method="POST" action="<?php echo e(route('route_BackEnd_CongNhanVien_Update', ['id'=>$chamHomNay->id])); ?>" style="display:inline"><?php echo csrf_field(); ?><button type="submit"  
                                    class="btn btn-lg"
                                    style="background:#C0392B;color:#fff;font-weight:700;padding:10px 30px;border-radius:6px;"
                                    onclick="return confirm('Xac nhan ket ca?')">
                                     <i class="fa fa-sign-out"></i> Ket Ca
-                                </a>
+                                </button></form>
                             <?php else: ?>
                                 <span style="background:#e8f4f0;color:#1B2A4A;padding:8px 16px;border-radius:6px;font-weight:600;">
                                     <i class="fa fa-check-circle" style="color:#7EC8B0;"></i>
@@ -256,7 +256,7 @@
                                 <?php if($item->gio_ra >0): ?>
                                     <td class="text-center"></td>
                                 <?php else: ?>
-                                    <td class="text-center"><a href="<?php echo e(route('route_BackEnd_CongNhanVien_Update',['id'=> $item->id])); ?>" title="Chấm công ra về"><i class="fa fa-edit"></i></a></td>
+                                    <td class="text-center"><form method="POST" action="<?php echo e(route('route_BackEnd_CongNhanVien_Update',['id'=> $item->id])); ?>" style="display:inline"><?php echo csrf_field(); ?><button type="submit"   title="Chấm công ra về"><i class="fa fa-edit"></i></button></form></td>
                                 <?php endif; ?>
 
                             </tr>
