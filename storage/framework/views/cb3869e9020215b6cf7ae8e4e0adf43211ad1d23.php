@@ -117,6 +117,9 @@
                             <a href="<?php echo e(route('route_BackEnd_CongNhanVien_List',['id'=>request()->route('id')])); ?>" class="btn btn-default btn-sm"><i class="fa fa-remove"></i> Clear</a>
                         </div>
                     </div>
+                </div>
+            </form>
+            <div class="row">
                     
                     <?php
                         $now = date('Y-m-d');
@@ -164,8 +167,6 @@
                         </div>
                     </div>
                 </div>
-
-            </form>
             <div class="clearfix"></div>
         </div>
     </section>
