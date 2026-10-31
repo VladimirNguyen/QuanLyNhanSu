@@ -8,7 +8,8 @@ class CheckNhanVien {
   abort_unless($user && (int)$user->status === 1, 403);
   if ((int)$user->level === 1) return $next($request);
   $id = $request->route('id');
-  if ($request->route()->getActionMethod() === 'chamRaVe') {
+  $action = $request->route()->getActionMethod();
+  if ($action === 'chamRaVe' || $action === 'updateGioKetCa') {
    $record = DB::table('cham_cong')->where('id', $id)->first();
    abort_unless($record, 404);
    $id = $record->id_nhan_vien;
