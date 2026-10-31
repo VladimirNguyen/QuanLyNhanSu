@@ -68,7 +68,7 @@
                         <td class="text-center">{{$item->so_luong_bien_ban}}</td>
                         <td class="text-center">
                             <a href="{{ route('route_BackEnd_BienBan_Detail',['id'=> $item->id]) }}" title="Sửa"><i class="fa fa-edit"></i></a>
-                            <a href="{{ route('route_BackEnd_BienBan_Delete',['id'=> $item->id]) }}" title="Xóa" onclick="return confirm('Bạn chắc chắn muốn xóa?');"><i class="fa fa-trash"></i></a>
+                            <form method="POST" action="{{ route('route_BackEnd_BienBan_Delete',['id'=> $item->id]) }}" style="display:inline">@csrf<button type="submit"   title="Xóa" onclick="return confirm('Bạn chắc chắn muốn xóa?');"><i class="fa fa-trash"></i></button></form>
                         </td>
                     </tr>
                 @endforeach

@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
 // Sửa đường dẫn trang chủ mặc định
 
 Route::get('/', 'HocsinhController@index');
@@ -53,7 +53,7 @@ Route::get('logout', [ 'as' => 'logout', 'uses' => 'Auth\LogoutController@getLog
 
 
 // danh mục tài sản
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/chucvu/detail/{id}', 'ChucVuController@chitietChucVu')
         ->where('id', '[0-9]+')
         ->name('route_BackEnd_ChucVu_Detail');
@@ -129,18 +129,14 @@ Route::post('/taisan-category/update/{id}', 'TaiSanController@updateChiTietDanhM
     Route::get('/donvi', 'DonViController@donVi')->name('route_BackEnd_DonVi_index');
     Route::get('/danh-sach-nhan-vien', 'NhanVienController@danhSachNhanVien')->name('route_BackEnd_DanhSachNhanVien_index');
     Route::get('/danh-sach-nhan-vien-moi', 'NhanVienController@danhSachNhanVienMoi')->name('route_BackEnd_DanhSachNhanVienMoi_index');
-    Route::get('/delete-nhan-vien-moi/{id}', 'NhanVienController@deleteNhanVienMoi')
+    Route::post('/delete-nhan-vien-moi/{id}', 'NhanVienController@deleteNhanVienMoi')
         ->where('id', '[0-9]+')
         ->name('route_BackEnd_DeleteNhanVienMoi_index');
     Route::get('/user-nhan-vien', 'NhanVienController@frNhanVien')->name('route_BackEnd_UserNhanVien_index');
     Route::match(['get', 'post'], '/nhan-vien-moi/add', 'NhanVienController@themNhanVienMoi')->name('route_BackEnd_NhanVienMoi_Add');
 
-    Route::get('/cong-nhan-vien/add/{id}', 'ChamCongController@themCongNgay')
-        ->where('id', '[0-9]+')
-        ->name('route_BackEnd_CongNhanVien_Add');
-    Route::get('/cong-nhan-vien/update/{id}', 'ChamCongController@chamRaVe')
-        ->where('id', '[0-9]+')
-        ->name('route_BackEnd_CongNhanVien_Update');
+
+
     Route::match(['get', 'post'], '/donvi/add', 'DonViController@themDonVi')->name('route_BackEnd_DonVi_Add');
 
     Route::get('/donvi/detail/{id}', 'DonViController@chiTietDonVi')
@@ -164,7 +160,7 @@ Route::post('/taisan-category/update/{id}', 'TaiSanController@updateChiTietDanhM
     Route::get('/taisancon/print/{id}', 'TaiSanConController@inNhanTaiSanCon')
         ->where('id', '[0-9]+')
         ->name('route_BackEnd_TaiSanCon_InNhanTaiSan_Update');
-    Route::get('/taisancon/delete/{id}', 'TaiSanConController@deleteTaiSanCon')
+    Route::post('/taisancon/delete/{id}', 'TaiSanConController@deleteTaiSanCon')
         ->name('route_BackEnd_TaiSanCon_Delete');
     //bienbanbangiao
     Route::get('/bienbanbangiao/print/{id}', 'TaiSanConController@inBienBanBanGiao')
@@ -187,7 +183,7 @@ Route::post('/taisan-category/update/{id}', 'TaiSanController@updateChiTietDanhM
     Route::post('/bienban/update/{id}', 'BienBanController@updateChiTietBienBan')
         ->where('id', '[0-9]+')
         ->name('route_BackEnd_BienBan_Update');
-    Route::get('/bienban/delete/{id}', 'BienBanController@deleteBienBan')
+    Route::post('/bienban/delete/{id}', 'BienBanController@deleteBienBan')
         ->where('id', '[0-9]+')
         ->name('route_BackEnd_BienBan_Delete');
     // biên bản kiểm kê
@@ -207,7 +203,7 @@ Route::post('/taisan-category/update/{id}', 'TaiSanController@updateChiTietDanhM
     Route::get('/phu-cap/detail/{id}', 'PhuCapController@chitetPhuCap')
         ->where('id', '[0-9]+')
         ->name('route_BackEnd_PhuCap_Detail');
-    Route::post('/bienban/update/{id}', 'PhuCapController@updatePhuCap')
+    Route::post('/phu-cap/update/{id}', 'PhuCapController@updatePhuCap')
         ->where('id', '[0-9]+')
         ->name('route_BackEnd_PhuCap_Update');
     //nhân viên
@@ -217,7 +213,7 @@ Route::post('/taisan-category/update/{id}', 'TaiSanController@updateChiTietDanhM
     Route::post('/nhan-vien/update/{id}', 'NhanVienController@updateNV')
         ->where('id', '[0-9]+')
         ->name('route_BackEnd_AdminNhanVien_Update');
-    Route::get('/danh-sach-nhan-vien/delete/{id}', 'NhanVienController@deleteNhanVien')
+    Route::post('/danh-sach-nhan-vien/delete/{id}', 'NhanVienController@deleteNhanVien')
         ->where('id', '[0-9]+')
         ->name('route_BackEnd_AdminNhanVien_Detele');
     //Hệ Số Lương
@@ -235,7 +231,7 @@ $middleware = ['checknhanvien.expired'];
 //Phân quyền nhân viên
 
 
-Route::middleware(['checknhanvien.expired','auth'])->group(function () {
+Route::middleware(['auth','checknhanvien.expired'])->group(function () {
     //Chấm công nhân viên
     Route::get('/cong-nhan-vien/list/{id}', 'NhanVienController@frChamCongNhanVien')
         ->where('id', '[0-9]+')
@@ -253,4 +249,12 @@ Route::middleware(['checknhanvien.expired','auth'])->group(function () {
         ->where('id', '[0-9]+')
         ->name('route_BackEnd_AdminNhanVienTaiKhoan_Update');
 
+});
+Route::middleware(['auth','checknhanvien.expired'])->group(function () {
+    Route::post('/cong-nhan-vien/add/{id}', 'ChamCongController@themCongNgay')
+        ->where('id', '[0-9]+')
+        ->name('route_BackEnd_CongNhanVien_Add');
+    Route::post('/cong-nhan-vien/update/{id}', 'ChamCongController@chamRaVe')
+        ->where('id', '[0-9]+')
+        ->name('route_BackEnd_CongNhanVien_Update');
 });

@@ -218,8 +218,8 @@
                                         Mở
                                 @endif
                                 <td class="text-center">
-                                    <a href="{{ route('route_BackEnd_CongNhanVien_Update',['id'=> $item->id]) }}" title="Chấm ra" ><i class="fa fa-edit"></i></a>
-                                    <a href="{{ route('route_BackEnd_TaiSanCon_Delete',['id'=> $item->id]) }}" title="Xóa" ><i class="fa fa-trash"></i></a>
+                                    <form method="POST" action="{{ route('route_BackEnd_CongNhanVien_Update',['id'=> $item->id]) }}" style="display:inline">@csrf<button type="submit"   title="Chấm ra" ><i class="fa fa-edit"></i></button></form>
+                                    <form method="POST" action="{{ route('route_BackEnd_TaiSanCon_Delete',['id'=> $item->id]) }}" style="display:inline">@csrf<button type="submit"   title="Xóa" ><i class="fa fa-trash"></i></button></form>
                                 </td>
                             </tr>
                         @endforeach

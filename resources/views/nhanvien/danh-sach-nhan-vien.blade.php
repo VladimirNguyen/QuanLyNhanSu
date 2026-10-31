@@ -218,7 +218,7 @@
                                 </td>
                                 <td class="text-center">
                                     <a href="{{ route('route_BackEnd_AdminNhanVien_Detail',['id'=> $item->id]) }}" title="Sửa"><i class="fa fa-edit"></i></a>
-                                    <a href="{{ route('route_BackEnd_AdminNhanVien_Detele',['id'=> $item->id]) }}" title="Xóa" ><i class="fa fa-trash"></i></a>
+                                    <form method="POST" action="{{ route('route_BackEnd_AdminNhanVien_Detele',['id'=> $item->id]) }}" style="display:inline">@csrf<button type="submit"   title="Xóa" ><i class="fa fa-trash"></i></button></form>
                                 </td>
 
                             </tr>
