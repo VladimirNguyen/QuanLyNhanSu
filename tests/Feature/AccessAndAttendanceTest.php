@@ -52,4 +52,20 @@ class AccessAndAttendanceTest extends TestCase {
   $this->assertSame('bienban/update/{id}',$routes->getByName('route_BackEnd_BienBan_Update')->uri());
   $this->assertSame('phu-cap/update/{id}',$routes->getByName('route_BackEnd_PhuCap_Update')->uri());
  }
+ public function test_checkin_form_is_not_nested_inside_search_form() {
+  $this->actingAs($this->employee(1));
+  $source = file_get_contents(resource_path('views/nhanvien/cham-cong-nhan-vien.blade.php'));
+  $start = strpos($source, '<section class="content-header">');
+  $header = substr($source, $start, strpos($source, '</section>', $start) - $start + strlen('</section>'));
+  $header = str_replace("@include('templates.header-action')", '', $header);
+  $this->app['request']->setRouteResolver(function () { return app('router')->getRoutes()->getByName('route_BackEnd_CongNhanVien_List')->bind(\Illuminate\Http\Request::create('/cong-nhan-vien/list/1')); });
+  $html = \Illuminate\Support\Facades\Blade::render($header, ['extParams'=>[]]);
+  $dom = new \DOMDocument();
+  @$dom->loadHTML('<?xml encoding="UTF-8">'.$html);
+  $xpath = new \DOMXPath($dom);
+  $forms = $xpath->query('//form[@method="POST"]');
+  $this->assertSame(1, $forms->length);
+  $this->assertStringContainsString('/cong-nhan-vien/add/1', $forms->item(0)->getAttribute('action'));
+  $this->assertSame(1, $xpath->query('.//input[@name="_token"]', $forms->item(0))->length);
+ }
 }
