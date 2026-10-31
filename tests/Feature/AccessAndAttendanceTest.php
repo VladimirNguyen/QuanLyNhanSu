@@ -99,4 +99,56 @@ class AccessAndAttendanceTest extends TestCase {
   $user=$this->employee(1);$user->level=1;$user->save();$this->payrollTables();
   $this->actingAs($user)->get('/bang-luong?month=2026-10')->assertOk();
  }
+
+ public function test_employee_cannot_edit_attendance_times() {
+  $a=$this->employee(1);$this->employee(2);
+  $id=DB::table('cham_cong')->insertGetId(['id_nhan_vien'=>2,'ngay_lam'=>'2026-10-01','gio_vao'=>'08:00:00']);
+  $this->actingAs($a)->post('/admin/cham-cong/'.$id,['gio_vao'=>'09:30','gio_ra'=>'17:00'])->assertForbidden();
+  $this->assertSame('08:00:00',DB::table('cham_cong')->where('id',$id)->value('gio_vao'));
+  DB::table('cham_cong')->where('id',$id)->update(['id_nhan_vien'=>1]);
+  $this->post('/admin/cham-cong/'.$id,['gio_vao'=>'09:30'])->assertForbidden();
+ }
+ public function test_admin_can_edit_another_employees_times_and_clear_checkout() {
+  $a=$this->employee(1);$a->level=1;$a->save();$this->employee(2);
+  $id=DB::table('cham_cong')->insertGetId(['id_nhan_vien'=>2,'ngay_lam'=>'2026-10-01','gio_vao'=>'08:00:00','gio_ra'=>'17:00:00']);
+  $this->actingAs($a)->post('/admin/cham-cong/'.$id,['gio_vao'=>'09:15','gio_ra'=>'18:30:15','id_nhan_vien'=>1,'ngay_lam'=>'2026-11-01'])
+   ->assertRedirect('/admin/cham-cong?ngay=2026-10-01')->assertSessionHas('success');
+  $this->assertDatabaseHas('cham_cong',['id'=>$id,'id_nhan_vien'=>2,'ngay_lam'=>'2026-10-01','gio_vao'=>'09:15:00','gio_ra'=>'18:30:15']);
+  $this->post('/admin/cham-cong/'.$id,['gio_vao'=>'08:00:00','gio_ra'=>''])->assertRedirect();
+  $this->assertNull(DB::table('cham_cong')->where('id',$id)->value('gio_ra'));
+  $this->post('/admin/cham-cong/999',['gio_vao'=>'08:00'])->assertNotFound();
+  $a->status=0;$a->save();
+  $this->post('/admin/cham-cong/'.$id,['gio_vao'=>'08:00'])->assertForbidden();
+ }
+ public function test_admin_cannot_save_invalid_attendance_times() {
+  $a=$this->employee(1);$a->level=1;$a->save();
+  $id=DB::table('cham_cong')->insertGetId(['id_nhan_vien'=>1,'ngay_lam'=>'2026-10-01','gio_vao'=>'08:00:00','gio_ra'=>'17:00:00']);
+  $this->actingAs($a);
+  foreach ([['','17:00','gio_vao'],['25:00','17:00','gio_vao'],['08:00','bad','gio_ra'],['08:00','07:59','gio_ra'],['08:00','08:00','gio_ra']] as [$in,$out,$field]) {
+   $this->post('/admin/cham-cong/'.$id,['gio_vao'=>$in,'gio_ra'=>$out])->assertSessionHasErrors($field);
+   $this->assertDatabaseHas('cham_cong',['id'=>$id,'gio_vao'=>'08:00:00','gio_ra'=>'17:00:00']);
+  }
+ }
+
+ public function test_attendance_tables_show_edit_controls_only_for_management() {
+  $record=(object)['id'=>7,'ngay_lam'=>'2026-10-01','gio_vao'=>'08:00:00','gio_ra'=>null,'trang_thai'=>1,'ho_ten'=>'Nhân viên khác','ten_chuc_vu'=>'Nhân viên','ten_phong_ban'=>'Cửa hàng 1'];
+  $source=file_get_contents(resource_path('views/nhanvien/cham-cong-nhan-vien.blade.php'));
+  $start=strpos($source,'<table');
+  $table=substr($source,$start,strpos($source,'</table>',$start)-$start+8);
+  $html=\Illuminate\Support\Facades\Blade::render($table,['list'=>collect([$record])]);
+  $dom=new \DOMDocument();@$dom->loadHTML('<?xml encoding="UTF-8">'.$html);$xpath=new \DOMXPath($dom);
+  $this->assertSame(5,$xpath->query('//th')->length);
+  $this->assertSame(5,$xpath->query('//tr[2]/td')->length);
+  $this->assertSame(0,$xpath->query('//form | //button')->length);
+  $source=file_get_contents(resource_path('views/nhanvien/admin-cham-cong.blade.php'));
+  $start=strpos($source,'<section class="content">');
+  $content=substr($source,$start,strrpos($source,'</section>')-$start+10);
+  $html=\Illuminate\Support\Facades\Blade::render($content,['list'=>collect([$record]),'ngay'=>'2026-10-01','chuaCham'=>collect(),'errors'=>new \Illuminate\Support\ViewErrorBag]);
+  @$dom->loadHTML('<?xml encoding="UTF-8">'.$html);$xpath=new \DOMXPath($dom);
+  $forms=$xpath->query('//form[@method="POST"]');
+  $this->assertSame(1,$forms->length);
+  $this->assertStringContainsString('/admin/cham-cong/7',$forms->item(0)->getAttribute('action'));
+  $this->assertSame(1,$xpath->query('.//input[@name="_token"]',$forms->item(0))->length);
+  $this->assertSame(2,$xpath->query('.//input[@type="time"]',$forms->item(0))->length);
+ }
 }

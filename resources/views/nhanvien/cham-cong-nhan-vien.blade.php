@@ -1,4 +1,4 @@
-﻿@extends('templates.layout')
+@extends('templates.layout')
 @section('title', '1233')
 @section('script')
     <link rel="stylesheet" href="{{ asset('default/bower_components/select2/dist/css/select2.min.css')}} ">
@@ -229,7 +229,6 @@
                             <th class="text-center">Giờ vào</th>
                             <th class="text-center">Giờ ra</th>
                             <th class="text-center">Trạng thái</th>
-                            <th width="50px" class="text-center">Công Cụ</th>
                         </tr>
                         @php($id=1)
 
@@ -253,12 +252,6 @@
                                         Có đi làm
                                     @endif
                                 </td>
-
-                                @if($item->gio_ra >0)
-                                    <td class="text-center"></td>
-                                @else
-                                    <td class="text-center"><form method="POST" action="{{ route('route_BackEnd_CongNhanVien_Update',['id'=> $item->id]) }}" style="display:inline">@csrf<button type="submit"   title="Chấm công ra về"><i class="fa fa-edit"></i></button></form></td>
-                                @endif
 
                             </tr>
                         @endforeach

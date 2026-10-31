@@ -42,3 +42,10 @@ Bản sửa giữ nguyên mật khẩu mặc định khi tạo tài khoản nhâ
 - Dữ liệu `he_so_luong.luong` đang là mức tiền lương tháng. Đơn giá ngày = mức tháng / 26; tổng = công được hưởng × đơn giá ngày + phụ cấp hoạt động (cộng một lần/tháng, không cộng trùng cùng loại). Phụ cấp cố định vẫn cộng khi chưa có công trong tháng.
 - Đây là bảng **tạm tính theo mức lương/phụ cấp hiện tại**, không lưu chốt lịch sử, không tính tăng ca hoặc khấu trừ khác. Chưa gán mức lương sẽ báo rõ, không tự coi là lương 0.
 - Không cần migration mới. Kiểm thử sau bổ sung: 12 test / 45 assertions đạt trên PHP 8.3.6 + SQLite; Blade biên dịch thành công. Chưa kiểm thử toàn bộ MySQL/trình duyệt.
+
+## Sửa giờ chấm công
+
+- Nhân viên chấm vào/kết ca bằng nút phía trên; bảng lịch sử không còn cột Công cụ.
+- Quản lý (`level=1`, tài khoản hoạt động) mở **Theo dõi chấm công**, chọn ngày, bấm **Sửa giờ** ở dòng nhân viên, nhập giờ vào/ra và bấm **Lưu giờ**.
+- Giờ vào bắt buộc; giờ ra có thể để trống nếu chưa kết ca, nếu nhập phải sau giờ vào trong cùng ngày. Có thể sửa bản ghi ngày trước; ngày làm và nhân viên của bản ghi được giữ nguyên.
+- Kiểm thử AccessAndAttendanceTest: 14 tests / 75 assertions đạt với PHP 8.3.6 + SQLite, gồm phân quyền, kiểm tra giờ và biểu mẫu. Chưa kiểm thử trực tiếp trên trình duyệt/MySQL.

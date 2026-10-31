@@ -224,6 +224,9 @@ Route::post('/taisan-category/update/{id}', 'TaiSanController@updateChiTietDanhM
     // Admin xem chấm công tất cả nhân viên
     Route::get('/admin/cham-cong', 'ChamCongController@adminChamCong')
         ->name('route_BackEnd_Admin_ChamCong');
+    Route::post('/admin/cham-cong/{id}', 'ChamCongController@updateAttendance')
+        ->where('id', '[0-9]+')
+        ->name('route_BackEnd_Admin_ChamCong_Update');
 });
 $middleware = ['checknhanvien.expired'];
 //Phân quyền nhân viên

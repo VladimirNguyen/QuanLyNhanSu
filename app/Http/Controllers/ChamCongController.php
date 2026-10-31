@@ -67,6 +67,38 @@ class ChamCongController extends Controller
         return view('nhanvien.admin-cham-cong', compact('list', 'ngay', 'extParams', 'chuaCham'));
     }
 
+    public function updateAttendance($id, Request $request)
+    {
+        $record = DB::table('cham_cong')->where('id', $id)->first();
+        abort_unless($record, 404);
+
+        foreach (['gio_vao', 'gio_ra'] as $field) {
+            $value = $request->input($field);
+            if (is_string($value) && preg_match('/^\d{2}:\d{2}$/D', $value)) {
+                $request->merge([$field => $value . ':00']);
+            }
+        }
+
+        $data = $request->validate([
+            'gio_vao' => ['required', 'date_format:H:i:s'],
+            'gio_ra' => ['nullable', 'date_format:H:i:s', 'after:gio_vao'],
+        ], [
+            'gio_vao.required' => 'Vui lòng nhập giờ vào ca.',
+            'gio_vao.date_format' => 'Giờ vào phải có định dạng HH:mm:ss.',
+            'gio_ra.date_format' => 'Giờ ra phải có định dạng HH:mm:ss.',
+            'gio_ra.after' => 'Giờ ra phải sau giờ vào ca.',
+        ]);
+
+        DB::table('cham_cong')->where('id', $id)->update([
+            'gio_vao' => $data['gio_vao'],
+            'gio_ra' => $data['gio_ra'] ?? null,
+            'updated_at' => now(),
+        ]);
+
+        return redirect()->route('route_BackEnd_Admin_ChamCong', ['ngay' => $record->ngay_lam])
+            ->with('success', 'Đã cập nhật giờ chấm công.');
+    }
+
     public function chamRaVe($id, Request $request){
         $objCongNhanVien = new CongNhanVien();
         $objIDNV = $objCongNhanVien->loadOneID($id);
