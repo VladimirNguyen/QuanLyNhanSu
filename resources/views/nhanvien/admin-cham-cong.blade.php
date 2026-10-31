@@ -36,6 +36,16 @@
         </div>
     @endif
 
+    @if($errors->any())
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     {{-- Bộ lọc ngày --}}
     <div class="filter-bar">
         <form method="GET" action="{{ route('route_BackEnd_Admin_ChamCong') }}" class="form-inline">
@@ -100,6 +110,7 @@
                         <th class="text-center">Giờ kết ca</th>
                         <th class="text-center">Số giờ làm</th>
                         <th class="text-center">Trạng thái</th>
+                        <th class="text-center">Công cụ</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -137,6 +148,27 @@
                             @else
                                 <span style="color:#1B2A4A;font-weight:600;"><i class="fa fa-circle-o"></i> Đang làm</span>
                             @endif
+                        </td>
+                        <td>
+                            <details @if((string)old('attendance_id') === (string)$item->id) open @endif>
+                                <summary class="text-primary" style="cursor:pointer;">Sửa giờ</summary>
+                                <form method="POST" action="{{ route('route_BackEnd_Admin_ChamCong_Update', ['id' => $item->id]) }}" style="min-width:180px;margin-top:8px;">
+                                    @csrf
+                                    <input type="hidden" name="attendance_id" value="{{ $item->id }}">
+                                    <div class="form-group">
+                                        <label for="gio-vao-{{ $item->id }}">Giờ vào ca</label>
+                                        <input id="gio-vao-{{ $item->id }}" type="time" step="1" name="gio_vao" required class="form-control"
+                                               value="{{ (string)old('attendance_id') === (string)$item->id ? old('gio_vao') : $item->gio_vao }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="gio-ra-{{ $item->id }}">Giờ kết ca</label>
+                                        <input id="gio-ra-{{ $item->id }}" type="time" step="1" name="gio_ra" class="form-control"
+                                               value="{{ (string)old('attendance_id') === (string)$item->id ? old('gio_ra') : $gioRa }}">
+                                        <small class="help-block">Để trống nếu chưa kết ca.</small>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-sm">Lưu giờ</button>
+                                </form>
+                            </details>
                         </td>
                     </tr>
                 @endforeach
