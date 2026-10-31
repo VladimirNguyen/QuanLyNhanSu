@@ -59,6 +59,7 @@ class LoginController extends Controller
 
 
             if( Auth::attempt(['email' => $email, 'password' =>$password])) {
+                $request->session()->regenerate();
                 switch ($flag) {
                     case 1:
                         return redirect('user');
@@ -68,6 +69,12 @@ class LoginController extends Controller
                         $objNhanVien = new NhanVien();
                         $id = $query->id;
                         $idNhanVien = $objNhanVien->loadOneIdUser($id);
+                        if (!$idNhanVien) {
+                            Auth::logout();
+                            $request->session()->invalidate();
+                            $request->session()->regenerateToken();
+                            return redirect('login')->with('error', 'Tài khoản chưa được liên kết hồ sơ nhân viên. Vui lòng liên hệ quản trị viên.');
+                        }
 
                         return redirect()->route('route_BackEnd_CongNhanVien_List', ['id' => $idNhanVien->id]);
                         break;

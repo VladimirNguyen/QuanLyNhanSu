@@ -117,6 +117,7 @@ class NguoiDung extends Model
         foreach ($params['cols'] as $colName => $val) {
             if ($colName == 'id') continue;
 
+            if ($colName === 'password' && !empty($val)) { $dataUpdate[$colName] = $val; continue; }
             if (in_array('tb1.'.$colName, $this->fillable))
                 $dataUpdate[$colName] = (strlen($val)==0)?null:$val;
         }
@@ -245,6 +246,7 @@ class NguoiDung extends Model
         foreach ($params['cols'] as $colName => $val) {
             if ($colName == 'id') continue;
 
+            if ($colName === 'password' && !empty($val)) { $dataUpdate[$colName] = $val; continue; }
             if (in_array('tb1.'.$colName, $this->fillable))
                 $dataUpdate[$colName] = (strlen($val)==0)?null:$val;
         }

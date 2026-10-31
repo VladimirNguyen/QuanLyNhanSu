@@ -24,24 +24,13 @@ class ChamCongController extends Controller
         $this->v = [];
     }
     public function themCongNgay($id,Request $request){
-        $arrChamCong = [];
-        $arrChamCong['id'] = null;
-        $arrChamCong['id_nhan_vien'] = $request->id;
-        $arrChamCong['ngay_lam'] = date('Y-m-d');
-        $arrChamCong['gio_vao'] = date('H:i:s');
-        $arrChamCong['gio_ra'] = 'null';
-        $arrChamCong['trang_thai'] = 1;
-        $arrChamCong['created_at'] = date('Y-m-d H:i:s');
-        $arrChamCong['updated_at'] = date('Y-m-d H:i:s');
-        $result = DB::table('cham_cong')->insert($arrChamCong) ;
-        if(!$result){
-            return response()->json(['errors'=>Session::exists('errors')?Session::pull('errors'):'Lỗi thêm mới'],500);
-        }else{
-
-                Session::flash('success', 'Chấm công thành công!');
-                return redirect()->route('route_BackEnd_CongNhanVien_List', ['id' => $id]);
-
-        }
+        DB::transaction(function () use ($id) {
+            $employee = DB::table('nhan_vien')->where('id', $id)->lockForUpdate()->first();
+            abort_unless($employee, 404);
+            if (DB::table('cham_cong')->where('id_nhan_vien', $id)->where('ngay_lam', date('Y-m-d'))->exists()) return;
+            DB::table('cham_cong')->insert(['id_nhan_vien'=>$id, 'ngay_lam'=>date('Y-m-d'), 'gio_vao'=>date('H:i:s'), 'gio_ra'=>null, 'trang_thai'=>1, 'created_at'=>now(), 'updated_at'=>now()]);
+        });
+        return redirect()->route('route_BackEnd_CongNhanVien_List', ['id'=>$id])->with('success', 'Đã ghi nhận chấm công hôm nay.');
     }
     public function adminChamCong(Request $request){
         $extParams = $request->all();
@@ -81,6 +70,8 @@ class ChamCongController extends Controller
     public function chamRaVe($id, Request $request){
         $objCongNhanVien = new CongNhanVien();
         $objIDNV = $objCongNhanVien->loadOneID($id);
+        abort_unless($objIDNV && $objIDNV->ngay_lam === date('Y-m-d'), 422);
+        if ($objIDNV->gio_ra && $objIDNV->gio_ra !== '00:00:00') return redirect()->back()->with('error', 'Đã chấm công ra về.');
         $udateGioVe =[];
         $udateGioVe['id'] = $request->id;
         $udateGioVe['gio_ra'] =  date('H:i:s');

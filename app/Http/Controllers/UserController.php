@@ -131,7 +131,7 @@ class UserController extends Controller
         $params['cols']['id'] = $id;
         if (!is_null($params['cols']['password']))
         {
-            $params['cols']['password'] = Hash::make($params['cols']['id']);
+            $params['cols']['password'] = Hash::make($params['cols']['password']);
         }
 
         $res = $modelNguoiDung->saveUpdate($params);

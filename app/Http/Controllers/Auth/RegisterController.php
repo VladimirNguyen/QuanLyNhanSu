@@ -47,13 +47,15 @@ class RegisterController extends Controller
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
+            'phone' => '',
+            'role' => 0,
             'level' => 2,
             'status' => 1,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
 
-        Session::flash('success', 'Đăng ký tài khoản thành công. Vui lòng đăng nhập');
+        Session::flash('success', 'Đăng ký thành công. Vui lòng liên hệ quản trị viên để liên kết hồ sơ nhân viên trước khi đăng nhập');
         return redirect('login');
     }
 }

@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Hash;
 
 use App\ChucVu;
 use App\CongNhanVien;
@@ -132,6 +133,7 @@ class NhanVienController extends Controller
         return view('nhanvien.fr-tai-khoan-nhan-vien',$this->v);
     }
     public function updateMatKhau($id, Request $request){
+        $request->validate(['name'=>'required|string|max:255', 'password'=>'required|string|min:6', 'password1'=>'required|same:password']);
         $objNhanVien = new  NhanVien();
         $objItem = $objNhanVien->loadOne($id);
         if($request->password == $request->password1 ){
@@ -216,9 +218,15 @@ class NhanVienController extends Controller
                 $taiKhoan['email'] = $request->email;
                 $taiKhoan['password'] = '123456';
                 $objUser = new NguoiDung();
-                $taoTaiKhoan = $objUser->saveNVNew($taiKhoan);
-                $Guiemail = $objUser->loadOne($taoTaiKhoan);
-                Mail::to($request->email)->send(new TaiKhoan($Guiemail));
+                $existingAccount = DB::table('users')->where('email', $request->email)->first();
+                if ($existingAccount) {
+                    abort_unless((int)$existingAccount->level === 2 && !DB::table('nhan_vien')->where('id_user', $existingAccount->id)->where('id', '!=', $id)->exists(), 422);
+                    $taoTaiKhoan = $existingAccount->id;
+                } else {
+                    $taoTaiKhoan = $objUser->saveNVNew($taiKhoan);
+                    $Guiemail = $objUser->loadOne($taoTaiKhoan);
+                    Mail::to($request->email)->send(new TaiKhoan($Guiemail));
+                }
                 $params['cols']['id_user'] = $taoTaiKhoan;
 
                 $objItem = $modelNhanVien->loadOne($id);
