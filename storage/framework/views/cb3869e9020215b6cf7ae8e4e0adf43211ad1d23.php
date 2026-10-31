@@ -1,4 +1,4 @@
-﻿
+
 <?php $__env->startSection('title', '1233'); ?>
 <?php $__env->startSection('script'); ?>
     <link rel="stylesheet" href="<?php echo e(asset('default/bower_components/select2/dist/css/select2.min.css')); ?> ">
@@ -229,7 +229,6 @@
                             <th class="text-center">Giờ vào</th>
                             <th class="text-center">Giờ ra</th>
                             <th class="text-center">Trạng thái</th>
-                            <th width="50px" class="text-center">Công Cụ</th>
                         </tr>
                         <?php ($id=1); ?>
 
@@ -253,47 +252,6 @@
                                         Có đi làm
                                     <?php endif; ?>
                                 </td>
-
-                                <?php if($item->gio_ra != '00:00:00' && $item->gio_ra): ?>
-                                    <td class="text-center">
-                                        <span style="color:#7EC8B0;font-size:12px;font-weight:600;">
-                                            <i class="fa fa-check-circle"></i> <?php echo e(date('H:i', strtotime($item->gio_ra))); ?>
-
-                                        </span>
-                                    </td>
-                                <?php else: ?>
-                                    <td class="text-center">
-                                        <button type="button" class="btn btn-xs" style="background:#C0392B;color:#fff;font-weight:700;"
-                                            data-toggle="modal" data-target="#modalKetCa<?php echo e($item->id); ?>">
-                                            <i class="fa fa-sign-out"></i> Kết Ca
-                                        </button>
-                                        <div class="modal fade" id="modalKetCa<?php echo e($item->id); ?>" tabindex="-1" role="dialog">
-                                            <div class="modal-dialog modal-sm">
-                                                <div class="modal-content">
-                                                    <div class="modal-header" style="background:#1B2A4A;padding:10px 15px;">
-                                                        <button type="button" class="close" data-dismiss="modal" style="color:#fff;opacity:1;"><span>&times;</span></button>
-                                                        <h4 class="modal-title" style="color:#fff;"><i class="fa fa-clock-o"></i> Nhập Giờ Kết Ca</h4>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p>Ngày làm: <strong><?php echo e(date('d/m/Y', strtotime($item->ngay_lam))); ?></strong></p>
-                                                        <p>Giờ vào: <strong><?php echo e(date('H:i', strtotime($item->gio_vao))); ?></strong></p>
-                                                        <form method="POST" action="<?php echo e(route('route_BackEnd_CongNhanVien_UpdateGio', ['id'=>$item->id])); ?>">
-                                                            <?php echo csrf_field(); ?>
-                                                            <div class="form-group">
-                                                                <label style="font-weight:600;">Giờ kết ca:</label>
-                                                                <input type="time" name="gio_ra" class="form-control"
-                                                                    value="<?php echo e(date('H:i')); ?>" required>
-                                                            </div>
-                                                            <button type="submit" class="btn btn-block btn-sm" style="background:#1B2A4A;color:#fff;font-weight:700;margin-top:8px;">
-                                                                <i class="fa fa-check"></i> Xác Nhận Kết Ca
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                <?php endif; ?>
 
                             </tr>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
