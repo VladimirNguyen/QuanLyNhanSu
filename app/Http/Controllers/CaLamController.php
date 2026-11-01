@@ -17,6 +17,9 @@ class CaLamController extends Controller
 
     /**
      * Tự tạo 2 bảng dang_ky_ca + lich_ca nếu chưa tồn tại (DB-first, không dùng migration).
+     * DDL giống hệt XepCaController::ensureTables() (FEAT-002): lich_ca có cột id_xep_boi
+     * (do admin xếp ca thủ công ghi), kèm ALTER TABLE ADD COLUMN id_xep_boi (guard
+     * Schema::hasColumn) cho DB đã tạo lich_ca trước đó thiếu cột -> idempotent.
      */
     private function ensureTables()
     {
@@ -40,11 +43,16 @@ class CaLamController extends Controller
                 id_nhan_vien INT UNSIGNED NOT NULL,
                 ngay_lam DATE NOT NULL,
                 ca VARCHAR(10) NOT NULL,
+                id_xep_boi INT UNSIGNED NULL DEFAULT NULL,
                 created_at TIMESTAMP NULL DEFAULT NULL,
                 updated_at TIMESTAMP NULL DEFAULT NULL,
                 PRIMARY KEY (id),
                 UNIQUE KEY unique_lich (id_nhan_vien, ngay_lam, ca)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+        }
+        // DB đã tạo lich_ca trước đó (không có id_xep_boi) -> thêm cột để cùng schema.
+        if (Schema::hasTable('lich_ca') && !Schema::hasColumn('lich_ca', 'id_xep_boi')) {
+            DB::statement("ALTER TABLE lich_ca ADD COLUMN id_xep_boi INT UNSIGNED NULL DEFAULT NULL AFTER ca");
         }
     }
 

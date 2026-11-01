@@ -17,9 +17,9 @@ class XepCaController extends Controller
 
     /**
      * Tự tạo 2 bảng dang_ky_ca + lich_ca nếu chưa tồn tại (DB-first, không dùng migration).
-     * Giống CaLamController::ensureTables() (FEAT-001): CREATE TABLE IF NOT EXISTS + guard Schema::hasTable.
-     * Lich_ca được bổ sung cột id_xep_boi (INT UNSIGNED NULL) để ghi admin nào xếp ca.
-     * Với DB đã có lich_ca từ FEAT-001 (chưa có cột này) thì ALTER TABLE ADD COLUMN cho idempotent.
+     * DDL giống hệt CaLamController::ensureTables() (FEAT-001): lich_ca có cột id_xep_boi
+     * (do admin xếp ca thủ công ghi), kèm ALTER TABLE ADD COLUMN id_xep_boi (guard
+     * Schema::hasColumn) cho DB đã tạo lich_ca trước đó thiếu cột -> idempotent.
      */
     private function ensureTables()
     {
