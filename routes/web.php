@@ -267,3 +267,19 @@ Route::middleware(['auth','checknhanvien.expired'])->group(function () {
         ->name('route_BackEnd_FRPhuCap_List');
     Route::get('/bang-luong/nhan-vien/{id}', 'PayrollController@index')->where('id', '[0-9]+')->name('payroll.employee');
 });
+
+// Đăng ký ca + lịch ca (nhân viên/trưởng ca, level=2)
+Route::middleware(['auth','checknhanvien.expired'])->group(function () {
+    Route::get('/dang-ky-ca/list/{id}', 'CaLamController@dangKyCaList')
+        ->where('id', '[0-9]+')
+        ->name('route_DangKyCa_List');
+    Route::post('/dang-ky-ca/add/{id}', 'CaLamController@storeDangKyCa')
+        ->where('id', '[0-9]+')
+        ->name('route_DangKyCa_Add');
+    Route::get('/dang-ky-ca/delete/{id}', 'CaLamController@deleteDangKyCa')
+        ->where('id', '[0-9]+')
+        ->name('route_DangKyCa_Delete');
+    Route::get('/lich-ca/{id}', 'CaLamController@lichCaView')
+        ->where('id', '[0-9]+')
+        ->name('route_LichCa_View');
+});

@@ -355,6 +355,12 @@
                     <li class=" active menu-open ">
                         <a href="{{ route('route_BackEnd_FRPhuCap_List',['id'=>$ownEmployeeId]) }}"><i class="fa fa-user"></i> <span>Phụ cấp của tôi</span></a>
                     </li>
+                    <li class=" active menu-open ">
+                        <a href="{{ route('route_DangKyCa_List',['id'=>$ownEmployeeId]) }}"><i class="fa fa-calendar-plus-o"></i> <span>Đăng Ký Ca</span></a>
+                    </li>
+                    <li class=" active menu-open ">
+                        <a href="{{ route('route_LichCa_View',['id'=>$ownEmployeeId]) }}"><i class="fa fa-calendar"></i> <span>Lịch Ca</span></a>
+                    </li>
                     <li><a href="{{ route('payroll.employee', ['id'=>$ownEmployeeId]) }}"><i class="fa fa-money"></i> <span>Bảng lương của tôi</span></a></li>
                     <?php }elseif ($query->level == 1){?>
                 <li class=" active menu-open ">
