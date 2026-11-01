@@ -219,7 +219,7 @@ unset($__errorArgs, $__bag); ?>" id="cmt_sau" disabled>
                                         data-placeholder="Chọn hệ số lương">
                                     <option value="">== Chọn hệ số lương ==</option>
                                     <?php $__currentLoopData = $objHeSoLuong; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($item->id); ?>" <?php if($objHeSoNV->id_he_so == $item->id): ?> selected <?php endif; ?>>
+                                        <option value="<?php echo e($item->id); ?>" <?php if($objHeSoNV && $objHeSoNV->id_he_so == $item->id): ?> selected <?php endif; ?>>
                                             <?php echo e($item->ten_he_so); ?>( <?php echo e($item->luong); ?>)
                                         </option>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

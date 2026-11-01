@@ -204,7 +204,7 @@
                                         data-placeholder="Chọn hệ số lương">
                                     <option value="">== Chọn hệ số lương ==</option>
                                     @foreach($objHeSoLuong as $item)
-                                        <option value="{{ $item->id }}" @if($objHeSoNV->id_he_so == $item->id) selected @endif>
+                                        <option value="{{ $item->id }}" @if($objHeSoNV && $objHeSoNV->id_he_so == $item->id) selected @endif>
                                             {{ $item->ten_he_so }}( {{$item->luong}})
                                         </option>
                                     @endforeach

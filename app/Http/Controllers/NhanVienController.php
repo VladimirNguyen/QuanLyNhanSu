@@ -104,7 +104,12 @@ class NhanVienController extends Controller
         $objHeSoLuong = new HeSoLuong();
         $this->v['objHeSoLuong'] = $objHeSoLuong->loadListWithPager($this->v['extParams']);
         $objHeSoNV = new HeSoLuongNhanVien();
-        $this->v['objHeSoNV']= $objHeSoNV->loadHeSoNV($id);
+        $hesonv = $objHeSoNV->loadHeSoNV($id);
+        // Nhân viên mới chưa có hệ số lương -> trả về object rỗng tránh lỗi null
+        if (!$hesonv) {
+            $hesonv = (object)['id' => null, 'id_he_so' => null, 'id_nhan_vien' => $id];
+        }
+        $this->v['objHeSoNV'] = $hesonv;
         return view('nhanvien.chi-tiet-nhan-vien',$this->v);
     }
     public function chiTietThongTinNV($id, Request $request){
