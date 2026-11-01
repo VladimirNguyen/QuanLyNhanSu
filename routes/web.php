@@ -227,6 +227,16 @@ Route::post('/taisan-category/update/{id}', 'TaiSanController@updateChiTietDanhM
     Route::post('/admin/cham-cong/{id}', 'ChamCongController@updateAttendance')
         ->where('id', '[0-9]+')
         ->name('route_BackEnd_Admin_ChamCong_Update');
+
+    // Admin xếp ca (FEAT-002): duyệt đăng ký ca + xếp ca thủ công + xóa lịch ca + xem lịch tổng hợp
+    Route::get('/admin/xep-ca', 'XepCaController@xepCa')->name('route_Admin_XepCa');
+    Route::post('/admin/xep-ca/duyet/{id}', 'XepCaController@duyetCa')
+        ->where('id', '[0-9]+')
+        ->name('route_Admin_DuyetCa');
+    Route::post('/admin/xep-ca/them', 'XepCaController@themLichCa')->name('route_Admin_ThemLichCa');
+    Route::get('/admin/xep-ca/xoa/{id}', 'XepCaController@xoaLichCa')
+        ->where('id', '[0-9]+')
+        ->name('route_Admin_XoaLichCa');
 });
 $middleware = ['checknhanvien.expired'];
 //Phân quyền nhân viên

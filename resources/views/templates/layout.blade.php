@@ -414,6 +414,7 @@
                     <li class=" active menu-open ">
                         <a href="{{ route('route_BackEnd_Admin_ChamCong') }}"><i class="fa fa-clock-o"></i> <span>Theo dõi chấm công</span></a>
                     </li>
+                    <li class=" active menu-open "><a href="{{ route('route_Admin_XepCa') }}"><i class="fa fa-calendar-check-o"></i> <span>Xếp Ca</span></a></li>
                     <li><a href="{{ route('payroll.index') }}"><i class="fa fa-money"></i> <span>Bảng lương tổng hợp</span></a></li>
                     <?php }?>
 {{--                <li class=" active menu-open ">--}}
